@@ -1,0 +1,9 @@
+config.php
+
+# Dossier d'upload (pour ne pas polluer GitHub avec tes images de test)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Fichiers système
+.DS_Store
+Thumbs.db
