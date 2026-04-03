@@ -6,6 +6,7 @@ use PDO;
 use PDOException;
 
 class Database
+
 {
     // Stocke l'instance unique de PDO
     private static $instance = null;
