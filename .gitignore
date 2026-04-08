@@ -1,8 +1,6 @@
 config.php
 
-tomtroc.sql
-
-# Dossier d'upload (pour ne pas polluer GitHub avec tes images de test)
+# Dossier d'upload
 public/uploads/*
 !public/uploads/.gitkeep
 
