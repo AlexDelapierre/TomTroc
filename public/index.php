@@ -1,28 +1,66 @@
 <?php
+
+use App\Controller\BookController;
+use App\Controller\HomeController;
+use App\Controller\UserController;
+
 session_start();
 
+require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../src/Autoloader.php';
 
 \App\Autoloader::register();
 
-use App\Core\Router;
-use App\Controller\UserController;
-use App\Controller\HomeController;
+// On récupère l'action demandée par l'utilisateur.
+// Si aucune action n'est demandée, on affiche la page d'accueil.
+$action = $_REQUEST['action'] ?? 'home';
 
-$router = new Router();
-
-// Routes pour l'utilisateur
-$router->addRoute('/register', UserController::class, 'register');
-$router->addRoute('/login', UserController::class, 'login');
-$router->addRoute('/logout', UserController::class, 'logout');
-
-// Route par défaut (Accueil)
-$router->addRoute('/', HomeController::class, 'index');
-
-// Lancement du Router avec l'URL actuelle
+// Try catch global pour gérer les erreurs
 try {
-    $router->handleRequest($_SERVER['REQUEST_URI']);
-} catch (\Throwable $e) {
+    // Pour chaque action, on appelle le bon contrôleur et la bonne méthode.
+    switch ($action) {
+        // Pages accessibles à tous.
+        case 'home':
+            $homeController = new HomeController();
+            $homeController->index();
+            break;
+
+        case 'books':
+            $bookController = new BookController();
+            $bookController->list();
+            break;
+
+        case 'messages':
+            $bookController = new BookController();
+            $bookController->list();
+            break;
+
+        // Section admin & connexion.
+        case 'register':
+            $userController = new UserController();
+            $userController->register();
+            break;
+
+        case 'login':
+            $userController = new UserController();
+            $userController->login();
+            break;
+
+        case 'logout':
+            $userController = new UserController();
+            $userController->logout();
+            break;
+
+        // case 'admin':
+        //     $adminController = new AdminController();
+        //     $adminController->showAdmin();
+        //     break;
+
+
+        default:
+            throw new Exception("La page demandée n'existe pas.");
+    }
+} catch (Exception $e) {
     echo "<h1>Erreur technique</h1>";
     echo "<p>Message : " . $e->getMessage() . "</p>";
     echo "<p>Fichier : " . $e->getFile() . " à la ligne " . $e->getLine() . "</p>";
