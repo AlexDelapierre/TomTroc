@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Core\AbstractController;
-use App\Repository\BookRepository;
+use App\Model\Repository\BookRepository;
 
 class BookController extends AbstractController
 {
@@ -13,7 +13,7 @@ class BookController extends AbstractController
         $books = $repo->findAvailable();
 
         // Appel de la méthode render héritée
-        $this->render('book/list', [
+        $this->render('book/index', [
             'title' => 'Découvrez nos livres',
             'books' => $books
         ]);

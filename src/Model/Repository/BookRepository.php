@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Model\Repository;
 
 use App\Core\Database;
 use App\Model\Entity\Book;
