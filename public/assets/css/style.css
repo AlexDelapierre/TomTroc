@@ -1,0 +1,180 @@
+/* ==========================================================================
+   1. RESET & VARIABLES
+   ========================================================================== */
+
+/* Reset moderne pour assurer la cohérence entre les navigateurs */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Couleurs */
+  --primary-color: #2563eb;
+  --secondary-color: #64748b;
+  --text-color: #1e293b;
+  --bg-color: #ffffff;
+  --error-color: #ef4444;
+
+  /* Typographie */
+  --font-main: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --base-font-size: 16px;
+  --line-height: 1.6;
+
+  /* Espacement */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+}
+
+/* ==========================================================================
+   2. ÉLÉMENTS DE BASE (Base Styles)
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: var(--base-font-size);
+  line-height: var(--line-height);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHIE
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.75rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   4. MISE EN PAGE (Layout)
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+/* ==========================================================================
+   5. COMPOSANTS (Components)
+   ========================================================================== */
+
+.navbar-logo {
+  height: 1.5rem;
+  width: auto;
+  display: block; /* Évite les espaces vides sous l'image */
+}
+
+/* --- Boutons --- */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+}
+
+.btn:hover {
+  filter: brightness(90%);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   6. UTILITAIRES (Utilities)
+   ========================================================================== */
+
+.text-center {
+  text-align: center;
+}
+.mt-1 {
+  margin-top: var(--spacing-sm);
+}
+.mt-2 {
+  margin-top: var(--spacing-md);
+}
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE (Media Queries)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+}
