@@ -51,19 +51,19 @@ abstract class AbstractController
     }
 
     /**
-     * Déconnecte l'utilisateur
-     */
-    protected function logout(): void
-    {
-        unset($_SESSION['user']);
-        session_destroy();
-    }
-
-    /**
      * Vérifie si l'utilisateur est connecté
      */
     protected function isConnected(): bool
     {
         return isset($_SESSION['user']);
+    }
+
+    /**
+     * Détruit la session
+     */
+    protected function destroySession(): void
+    {
+        unset($_SESSION['user']);
+        session_destroy();
     }
 }
