@@ -2,9 +2,9 @@ USE tomtroc;
 
 -- Insertion des utilisateurs (Mot de passe : password123)
 INSERT INTO user (username, email, password, avatar) VALUES
-('Alice', 'alice@test.fr', '$2y$10$pL9bZk6yN5h.gK6yZ6yZ6uO4z5l5Xz5z5z5z5z5z5z5z5z5z5z5z', 'avatar_alice.jpg'),
-('Bob', 'bob@test.fr', '$2y$10$pL9bZk6yN5h.gK6yZ6yZ6uO4z5l5Xz5z5z5z5z5z5z5z5z5z5z5z', 'avatar_bob.jpg'),
-('Charlie', 'charlie@test.fr', '$2y$10$pL9bZk6yN5h.gK6yZ6yZ6uO4z5l5Xz5z5z5z5z5z5z5z5z5z5z5z', NULL);
+('Alice', 'alice@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_alice.jpg'),
+('Bob', 'bob@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_bob.jpg'),
+('Charlie', 'charlie@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', NULL);
 
 -- Insertion de quelques livres
 INSERT INTO book (user_id, title, author, description, image, is_available) VALUES
