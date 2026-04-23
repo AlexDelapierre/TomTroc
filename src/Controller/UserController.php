@@ -11,6 +11,7 @@ class UserController extends AbstractController
     public function register()
     {
         $errors = [];
+        $targetAction = $_GET['redirect'] ?? null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -42,8 +43,12 @@ class UserController extends AbstractController
                     $registeredUser = $userRepo->findByEmail($_POST['email']);
                     $this->setUserSession($registeredUser);
 
-                    // Redirection vers la page d'accueil
-                    $this->redirect('/');
+                    // Redirection dynamique
+                    if ($targetAction) {
+                        $this->redirect('index.php?action=' . $targetAction);
+                    } else {
+                        $this->redirect('/');
+                    }
                     return;
                 }
             } catch (\PDOException $e) {
@@ -67,6 +72,7 @@ class UserController extends AbstractController
         }
 
         $error = null;
+        $targetAction = $_GET['redirect'] ?? null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'] ?? '';
@@ -77,7 +83,12 @@ class UserController extends AbstractController
 
             if ($user && password_verify($password, $user->getPassword())) {
                 $this->setUserSession($user);
-                $this->redirect('/');
+                // Redirection dynamique
+                if ($targetAction) {
+                    $this->redirect('index.php?action=' . $targetAction);
+                } else {
+                    $this->redirect('/');
+                }
                 return;
             } else {
                 $error = "Identifiants invalides.";
