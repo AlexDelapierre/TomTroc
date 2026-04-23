@@ -2,6 +2,7 @@
 
 use App\Controller\BookController;
 use App\Controller\HomeController;
+use App\Controller\MessageController;
 use App\Controller\UserController;
 
 session_start();
@@ -31,11 +32,11 @@ try {
             break;
 
         case 'messages':
-            $bookController = new BookController();
-            $bookController->list();
+            $messageController = new MessageController();
+            // $mesageController->list();
             break;
 
-        // Section admin & connexion.
+        // Section connexion.
         case 'register':
             $userController = new UserController();
             $userController->register();
@@ -51,6 +52,7 @@ try {
             $userController->logout();
             break;
 
+        // Section admin.
         // case 'admin':
         //     $adminController = new AdminController();
         //     $adminController->showAdmin();
