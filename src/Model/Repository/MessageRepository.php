@@ -33,17 +33,9 @@ class MessageRepository
     {
         $query = $this->db->prepare("SELECT * FROM message WHERE id = :id");
         $query->execute(['id' => $id]);
-        $data = $query->fetch();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
 
-        if (!$data) return null;
-
-        return new Message(
-            $data['id'],
-            $data['sender_id'],
-            $data['receiver_id'],
-            $data['content'],
-            $data['created_at']
-        );
+        return $data ? new Message($data) : null;
     }
 
     public function getConversation(int $userId1, int $userId2): array
@@ -57,14 +49,8 @@ class MessageRepository
         $query->execute(['u1' => $userId1, 'u2' => $userId2]);
 
         $messages = [];
-        while ($data = $query->fetch()) {
-            $messages[] = new Message(
-                $data['id'],
-                $data['sender_id'],
-                $data['receiver_id'],
-                $data['content'],
-                $data['created_at']
-            );
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $messages[] = new Message($data);
         }
         return $messages;
     }
@@ -84,10 +70,6 @@ class MessageRepository
         return $query->execute(['id' => $id]);
     }
 
-    /**
-     * READ (Spécifique) : Liste des conversations avec le dernier message
-     * Utile pour la page index de la messagerie.
-     */
     public function getLastMessagesByUser(int $userId): array
     {
         $query = $this->db->prepare("
@@ -104,6 +86,6 @@ class MessageRepository
         ");
 
         $query->execute(['userId' => $userId]);
-        return $query->fetchAll();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

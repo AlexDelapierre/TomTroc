@@ -21,32 +21,16 @@ class UserRepository
         $query->execute(['id' => $id]);
         $data = $query->fetch();
 
-        if (!$data) return null;
-
-        return new User(
-            $data['id'],
-            $data['username'],
-            $data['email'],
-            $data['password'],
-            $data['avatar']
-        );
+        return $data ? new User($data) : null;
     }
 
     public function findByEmail(string $email): ?User
     {
         $query = $this->db->prepare("SELECT * FROM user WHERE email = :email");
         $query->execute(['email' => $email]);
-        $data = $query->fetch();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
 
-        if (!$data) return null;
-
-        return new User(
-            $data['id'],
-            $data['username'],
-            $data['email'],
-            $data['password'],
-            $data['avatar']
-        );
+        return $data ? new User($data) : null;
     }
 
     public function add(User $user): bool

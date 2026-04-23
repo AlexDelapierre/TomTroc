@@ -66,16 +66,8 @@ class BookRepository
         $query->execute(['user_id' => $userId]);
 
         $books = [];
-        while ($data = $query->fetch()) {
-            $books[] = new Book(
-                $data['id'],
-                $data['user_id'],
-                $data['title'],
-                $data['author'],
-                $data['description'],
-                $data['image'],
-                (bool)$data['is_available']
-            );
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($data);
         }
         return $books;
     }
@@ -86,9 +78,7 @@ class BookRepository
         $query->execute(['id' => $id]);
         $data = $query->fetch();
 
-        if (!$data) return null;
-
-        return new Book($data['id'], $data['user_id'], $data['title'], $data['author'], $data['description'], $data['image'], (bool)$data['is_available']);
+        return $data ? new Book($data) : null;
     }
 
     /**
@@ -111,15 +101,7 @@ class BookRepository
 
         $books = [];
         while ($data = $query->fetch()) {
-            $books[] = new Book(
-                $data['id'],
-                $data['user_id'],
-                $data['title'],
-                $data['author'],
-                $data['description'],
-                $data['image'],
-                (bool)$data['is_available']
-            );
+            $books[] = new Book($data);
         }
         return $books;
     }
