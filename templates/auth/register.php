@@ -14,7 +14,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="index.php?action=register" method="POST">
+                <form action="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Pseudo</label>
                         <input type="text" name="username" id="username" class="form-control" placeholder="Votre pseudo" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" required>
@@ -45,7 +45,7 @@
 
                 <div class="text-center">
                     <p class="mb-0 text-muted">Déjà membre ?</p>
-                    <a href="/login" class="text-decoration-none">Connectez-vous ici</a>
+                    <a href="index.php?action=login" class="text-decoration-none">Connectez-vous ici</a>
                 </div>
             </div>
         </div>
