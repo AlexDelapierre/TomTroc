@@ -2,32 +2,14 @@
 
 namespace App\Model\Entity;
 
-class Message
+use App\Core\AbstractEntity;
+
+class Message extends AbstractEntity
 {
-    private ?int $id;
     private int $senderId;
     private int $receiverId;
     private string $content;
     private string $createdAt;
-
-    public function __construct(
-        ?int $id = null,
-        int $senderId = 0,
-        int $receiverId = 0,
-        string $content = "",
-        string $createdAt = ""
-    ) {
-        $this->id = $id;
-        $this->senderId = $senderId;
-        $this->receiverId = $receiverId;
-        $this->content = $content;
-        $this->createdAt = $createdAt;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getSenderId(): int
     {

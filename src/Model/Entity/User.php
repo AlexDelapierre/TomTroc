@@ -2,27 +2,14 @@
 
 namespace App\Model\Entity;
 
-class User
+use App\Core\AbstractEntity;
+
+class User extends AbstractEntity
 {
-    private ?int $id;
     private string $username;
     private string $email;
     private string $password;
     private ?string $avatar;
-
-    public function __construct(?int $id = null, string $username = "", string $email = "", string $password = "", ?string $avatar = null)
-    {
-        $this->id = $id;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-        $this->avatar = $avatar;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getUsername(): string
     {
