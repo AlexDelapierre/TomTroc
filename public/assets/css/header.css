@@ -1,0 +1,16 @@
+header {
+  height: 10vh;
+}
+
+.navbar-brand img {
+  height: 7vh;
+  width: auto;
+}
+
+.badge {
+  width: 16px;
+  height: 22px;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0.75rem;
+}
