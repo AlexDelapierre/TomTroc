@@ -10,7 +10,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="index.php?action=login" method="POST">
+                <form action="index.php?action=login<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">Adresse email</label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="exemple@test.fr" required>
@@ -35,7 +35,7 @@
 
                 <div class="text-center">
                     <p class="mb-0 text-muted">Pas encore de compte ?</p>
-                    <a href="/register" class="text-decoration-none">Créer un compte TomTroc</a>
+                    <a href="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" class="text-decoration-none">Créer un compte TomTroc</a>
                 </div>
             </div>
         </div>
