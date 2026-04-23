@@ -10,7 +10,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-5">
+                <ul class="navbar-nav me-auto mb-lg-0 gap-lg-5">
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php?action=home">Accueil</a>
                     </li>
@@ -19,7 +19,7 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav mb-2 mb-lg-0 gap-lg-5">
+                <ul class="navbar-nav mb-lg-0 gap-lg-5">
                     <?php if (isset($_SESSION['user'])): ?>
                         <li class="nav-item">
                             <a class="nav-link d-flex align-items-center gap-1" href="index.php?action=messages">
@@ -27,9 +27,9 @@
                                     <path d="M7.5 0.355469C11.4954 0.355469 14.6445 3.15221 14.6445 6.5C14.6445 8.19467 13.8458 9.73887 12.5342 10.8594L12.3184 11.0439L12.4443 11.2812V12.7334L11.1797 12.0029L11.0117 11.8555L10.8037 11.9492C9.8171 12.3929 8.6938 12.6445 7.5 12.6445C3.50458 12.6445 0.355469 9.84779 0.355469 6.5C0.355469 3.15221 3.50458 0.355469 7.5 0.355469Z" stroke="#292929" stroke-width="0.71" />
                                 </svg>
                                 Messagerie
-                                <span class="badge bg-dark d-flex justify-content-center align-items-center">
+                                <!-- <span class="badge bg-dark d-flex justify-content-center align-items-center">
                                     1
-                                </span>
+                                </span> -->
                             </a>
                         </li>
                         <li class="nav-item">
