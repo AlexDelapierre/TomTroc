@@ -13,6 +13,7 @@
   /* Backgrounds */
   --bg-primary: #f5f3ef;
   --bg-secondary: #faf9f7;
+  /* --bg-tertiary: #edf2f6; */
 
   /* Surcharge Bootstrap directe */
   --bs-primary: var(--primary);
