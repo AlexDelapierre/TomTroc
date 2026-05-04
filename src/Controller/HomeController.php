@@ -3,14 +3,18 @@
 namespace App\Controller;
 
 use App\Core\AbstractController;
+use App\Model\Repository\BookRepository;
 
 class HomeController extends AbstractController
 {
     public function index()
     {
-        // On pourra plus tard récupérer les 4 derniers livres ici
+        $bookRepository = new BookRepository();
+        $books = $bookRepository->findLatest(4);
+
         $this->render('home', [
-            'title' => 'Accueil - TomTroc'
+            'title' => 'Accueil - TomTroc',
+            'books' => $books
         ]);
     }
 }
