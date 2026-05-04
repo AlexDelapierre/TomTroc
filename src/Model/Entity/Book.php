@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Core\AbstractEntity;
+use App\Model\Repository\UserRepository;
 
 class Book extends AbstractEntity
 {
@@ -65,5 +66,10 @@ class Book extends AbstractEntity
     public function setIsAvailable(bool $status): void
     {
         $this->isAvailable = $status;
+    }
+    public function getUser(): ?User
+    {
+        $userRepository = new UserRepository;
+        return $userRepository->findById($this->userId);
     }
 }
