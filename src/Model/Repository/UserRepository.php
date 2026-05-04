@@ -36,15 +36,16 @@ class UserRepository
     public function add(User $user): bool
     {
         $query = $this->db->prepare("
-            INSERT INTO user (username, email, password, avatar)
-            VALUES (:username, :email, :password, :avatar)
+            INSERT INTO user (username, email, password, avatar, created_at)
+            VALUES (:username, :email, :password, :avatar, :created_at)
         ");
 
         return $query->execute([
-            'username' => $user->getUsername(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
-            'avatar'   => $user->getAvatar()
+            'username'   => $user->getUsername(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
+            'avatar'     => $user->getAvatar(),
+            'created_at' => $user->getCreatedAt()->format('Y-m-d H:i:s')
         ]);
     }
 
