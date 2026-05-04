@@ -7,7 +7,7 @@ header {
   width: auto;
 }
 
-.badge {
+header .badge {
   width: 16px;
   height: 22px;
   border-radius: 10px;
