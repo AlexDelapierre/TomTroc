@@ -120,8 +120,10 @@ class UserController extends AbstractController
         $userRepo = new UserRepository();
         $user = $userRepo->findById($_SESSION['user']['id']);
 
+        // On récupère les livres de l'utilisateur depuis le Repo
         $bookRepo = new BookRepository();
         $books = $bookRepo->findByUser($user->getId());
+        // On compte le nombre de livres
         $bookCount = count($books);
 
         // Variables pour gérer les erreurs/succès si envoyées par updateProfile
@@ -132,6 +134,7 @@ class UserController extends AbstractController
         $this->render('user/profile', [
             'title' => 'Mon Compte',
             'user' => $user,
+            'books' => $books,
             'bookCount' => $bookCount,
             'error' => $error,
             'success' => $success
