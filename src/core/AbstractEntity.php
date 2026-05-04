@@ -13,7 +13,7 @@ abstract class AbstractEntity
         }
     }
 
-    protected function hydrate(array $data): void
+    public function hydrate(array $data): void
     {
         foreach ($data as $key => $value) {
             // Transformation de user_id en setUserId
