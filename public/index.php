@@ -20,17 +20,54 @@ $action = $_REQUEST['action'] ?? 'home';
 try {
     // Pour chaque action, on appelle le bon contrôleur et la bonne méthode.
     switch ($action) {
-        // Pages accessibles à tous.
         case 'home':
             $homeController = new HomeController();
             $homeController->index();
             break;
 
-        case 'books':
+        // --- Section Utilisateur / Profil ---
+        case 'profile': // Mon compte (utilisateur connecté)
+            $userController = new UserController();
+            $userController->showProfile();
+            break;
+
+        case 'updateProfile': // Mise à jour de son profil
+            $userController = new UserController();
+            $userController->updateProfile();
+            break;
+
+        case 'publicProfile': // Compte d'un autre utilisateur
+            $userController = new UserController();
+            $userController->showPublicProfile();
+            break;
+
+        // --- Section Livres ---
+        case 'books': // Liste globale
             $bookController = new BookController();
             $bookController->list();
             break;
 
+        case 'book': // Détail d'un livre
+            $bookController = new BookController();
+            $bookController->show();
+            break;
+
+        case 'addBook':
+            $bookController = new BookController();
+            $bookController->add();
+            break;
+
+        case 'editBook':
+            $bookController = new BookController();
+            $bookController->edit();
+            break;
+
+        case 'deleteBook': // Supprimer un livre
+            $bookController = new BookController();
+            $bookController->delete();
+            break;
+
+        // --- Section Messages ---
         case 'messages':
             $messageController = new MessageController();
             // $mesageController->list();
