@@ -2,6 +2,8 @@
 
 namespace App\Model\Entity;
 
+use DateTimeImmutable;
+
 use App\Core\AbstractEntity;
 
 class User extends AbstractEntity
@@ -10,6 +12,13 @@ class User extends AbstractEntity
     private string $email;
     private string $password;
     private ?string $avatar;
+    private DateTimeImmutable $createdAt;
+
+    public function __construct(array $data = [])
+    {
+        $this->createdAt = new DateTimeImmutable();
+        parent::__construct($data);
+    }
 
     public function getUsername(): string
     {
@@ -45,5 +54,22 @@ class User extends AbstractEntity
     public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
+    }
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(string|DateTimeImmutable $createdAt): void
+    {
+        if (is_string($createdAt)) {
+            $this->createdAt = new DateTimeImmutable($createdAt);
+        } else {
+            $this->createdAt = $createdAt;
+        }
+    }
+    public function getAccountAge(): \DateInterval
+    {
+        $now = new DateTimeImmutable();
+        return $this->createdAt->diff($now);
     }
 }
