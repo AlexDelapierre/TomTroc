@@ -82,6 +82,24 @@ class BookRepository
     }
 
     /**
+     * Récupère les derniers livres ajoutés
+     * @param int $limit Nombre maximum de livres à récupérer
+     * @return Book[] Tableau d'objets Book
+     */
+    public function findLatest(int $limit = 4): array
+    {
+        $query = $this->db->prepare("SELECT * FROM book ORDER BY id DESC LIMIT :limit");
+        $query->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $query->execute();
+
+        $books = [];
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($data);
+        }
+        return $books;
+    }
+
+    /**
      * Récupère les livres disponibles (possibilité de filtrer par titre)
      * * @param string $search Chaîne de caractères à rechercher dans le titre
      * @return Book[] Tableau d'objets Book
