@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS user (
     username VARCHAR(50) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    avatar VARCHAR(255) DEFAULT NULL
+    avatar VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 -- Table livre (Bibliothèque)

@@ -1,10 +1,10 @@
 USE tomtroc;
 
 -- Insertion des utilisateurs (Mot de passe : password123)
-INSERT INTO user (username, email, password, avatar) VALUES
-('Alice', 'alice@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_alice.jpg'),
-('Bob', 'bob@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_bob.jpg'),
-('Charlie', 'charlie@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', NULL);
+INSERT INTO user (username, email, password, avatar, created_at) VALUES
+('Alice', 'alice@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_alice.jpg', '2026-04-01 09:00:00'),
+('Bob', 'bob@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', 'avatar_bob.jpg', '2026-04-02 10:30:00'),
+('Charlie', 'charlie@test.fr', '$2y$12$l8Cz8ntfpwEiDuus0A6D0O1H63yW5sII.8qzCQTq.7CcoSquSh586', NULL, '2026-04-03 14:15:00');
 
 -- Insertion de quelques livres
 INSERT INTO book (user_id, title, author, description, image, is_available) VALUES
