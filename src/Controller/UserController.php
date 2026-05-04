@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Core\AbstractController;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\BookRepository;
 use App\Model\Entity\User;
+use App\Service\UploadService;
 
 class UserController extends AbstractController
 {
@@ -29,18 +31,14 @@ class UserController extends AbstractController
 
                 // Si pas d'erreurs, on procède à l'inscription
                 if (empty($errors)) {
-                    $newUser = new User(
-                        null,
-                        $_POST['username'],
-                        $_POST['email'],
-                        password_hash($_POST['password'], PASSWORD_DEFAULT),
-                        null
-                    );
+                    $newUser = new User($_POST);
+
+                    $newUser->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
 
                     $userRepo->add($newUser);
 
                     // LOG AUTOMATIQUE
-                    $registeredUser = $userRepo->findByEmail($_POST['email']);
+                    $registeredUser = $userRepo->findByEmail($newUser->getEmail());
                     $this->setUserSession($registeredUser);
 
                     // Redirection dynamique
@@ -105,5 +103,126 @@ class UserController extends AbstractController
     {
         $this->destroySession();
         $this->redirect('/');
+    }
+
+    /**
+     * Affiche le profil de l'utilisateur connecté
+     * Action: profile
+     */
+    public function showProfile()
+    {
+        // On vérifie que l'utilisateur est bien connecté
+        if (!$this->isConnected()) {
+            $this->redirect('index.php?action=login');
+        }
+
+        // On récupère les données de l'utilisateur depuis le Repo pour avoir l'objet User complet
+        $userRepo = new UserRepository();
+        $user = $userRepo->findById($_SESSION['user']['id']);
+
+        $bookRepo = new BookRepository();
+        $books = $bookRepo->findByUser($user->getId());
+        $bookCount = count($books);
+
+        // Variables pour gérer les erreurs/succès si envoyées par updateProfile
+        $error = $_SESSION['error_profile'] ?? null;
+        $success = $_SESSION['success_profile'] ?? null;
+        unset($_SESSION['error_profile'], $_SESSION['success_profile']);
+
+        $this->render('user/profile', [
+            'title' => 'Mon Compte',
+            'user' => $user,
+            'bookCount' => $bookCount,
+            'error' => $error,
+            'success' => $success
+        ]);
+    }
+
+    /**
+     * Met à jour le profil de l'utilisateur
+     * Action: updateProfile
+     */
+    public function updateProfile()
+    {
+        if (!$this->isConnected() || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('index.php?action=profile');
+        }
+
+        $userRepo = new UserRepository();
+        $user = $userRepo->findById($_SESSION['user']['id']);
+
+        if (!$user) {
+            $this->redirect('index.php?action=logout');
+        }
+
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        // Mise à jour de l'email
+        if (!empty($email) && $email !== $user->getEmail()) {
+            // Vérifier si l'email existe déjà pour quelqu'un d'autre
+            $existingUser = $userRepo->findByEmail($email);
+            if ($existingUser && $existingUser->getId() !== $user->getId()) {
+                $_SESSION['error_profile'] = "Cet email est déjà utilisé.";
+                $this->redirect('index.php?action=profile');
+                return;
+            }
+            $user->setEmail($email);
+        }
+
+        // Mise à jour du mot de passe
+        if (!empty($password)) {
+            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+        }
+
+        // Gestion de l'upload de l'avatar
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+            $uploadService = new UploadService();
+            $targetDir = __DIR__ . '/../../public/uploads/avatars';
+
+            try {
+                $newFilename = $uploadService->uploadImage($_FILES['avatar'], $targetDir, 'avatar_', $user->getAvatar());
+                $user->setAvatar($newFilename);
+            } catch (\Exception $e) {
+                $_SESSION['error_profile'] = $e->getMessage();
+            }
+        }
+
+        $userRepo->update($user);
+
+        // Mettre à jour la session utilisateur avec les nouvelles infos
+        $this->setUserSession($user);
+
+        // On vérifie s'il y a une erreur d'upload, sinon message de succès
+        if (!isset($_SESSION['error_profile'])) {
+            $_SESSION['success_profile'] = "Profil mis à jour avec succès.";
+        }
+
+        $this->redirect('index.php?action=profile');
+    }
+
+    /**
+     * Affiche le profil d'un utilisateur tiers
+     * Action: publicProfile
+     */
+    public function showPublicProfile()
+    {
+        $id = $_GET['id'] ?? null;
+        $userRepo = new UserRepository();
+        $user = null;
+
+        if ($id) {
+            $user = $userRepo->findById((int)$id);
+        }
+
+        // Si l'utilisateur n'existe pas, on lance une erreur
+        if (!$user) {
+            throw new \Exception("L'utilisateur demandé est introuvable.");
+        }
+
+        $this->render('user/public_profile', [
+            'title' => 'Profil de ' . htmlspecialchars($user->getUsername()),
+            'user' => $user
+        ]);
     }
 }
