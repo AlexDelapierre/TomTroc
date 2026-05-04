@@ -10,12 +10,11 @@
                     <?php $avatarPath = $user->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($user->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
                     <div>
                         <img src="<?= $avatarPath ?>"
-                            class="rounded-circle mb-2 d-block mx-auto"
-                            style="width: 150px; height: 150px; object-fit: cover;"
+                            class="rounded-circle mb-2 d-block mx-auto profile-avatar"
                             alt="Avatar de <?= htmlspecialchars($user->getUsername()) ?>"
                             loading="lazy">
                         <br>
-                        <label for="avatar" class="text-primary" style="cursor: pointer; text-decoration: underline;">Modifier l'avatar</label>
+                        <label for="avatar" class="text-primary text-decoration-underline profile-avatar-label">Modifier l'avatar</label>
                         <input class="d-none" type="file" id="avatar" name="avatar" accept="image/*">
                     </div>
                     <hr>
@@ -68,3 +67,45 @@
         </div>
     </form>
 </section>
+
+<div class="container my-5 ">
+    <div class="table-responsive bg-secondary">
+        <table class="table table-striped table-hover mb-0 align-middle">
+            <thead>
+                <tr class="small fw-bold text-muted">
+                    <th class="ps-4 py-3">PHOTO</th>
+                    <th class="py-3">TITRE</th>
+                    <th class="py-3">AUTEUR</th>
+                    <th class="py-3">DESCRIPTION</th>
+                    <th class="py-3 text-center">DISPONIBILITÉ</th>
+                    <th class="py-3 text-center pe-4">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($books as $book): ?>
+                    <tr>
+                        <td class="ps-4">
+                            <img src="<?= htmlspecialchars($book->getImage() ?? '') ?>" alt="Couverture" class="img-fluid book-img-custom">
+                        </td>
+                        <td class="fw-normal"><?= htmlspecialchars($book->getTitle()) ?></td>
+                        <td><?= htmlspecialchars($book->getAuthor()) ?></td>
+                        <td class="fst-italic text-secondary small description-cell">
+                            <?= htmlspecialchars($book->getDescription()) ?>
+                        </td>
+                        <td class="text-center">
+                            <?php if ($book->getIsAvailable()): ?>
+                                <span class="badge rounded-pill px-3 py-2 text-white badge-available">disponible</span>
+                            <?php else: ?>
+                                <span class="badge rounded-pill px-3 py-2 text-white badge-not-available">non dispo.</span>
+                            <?php endif; ?>
+                        </td>
+                        <td class="text-center pe-4">
+                            <a href="#" class="text-dark text-decoration-underline me-3 small">Éditer</a>
+                            <a href="#" class="text-danger text-decoration-underline small">Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
