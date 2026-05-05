@@ -1,32 +1,40 @@
-<section class="container container-sm">
-    <h1 class="text-center h3 mb-4">Inscription</h1>
-    <form action="index.php?action=edit&id=<?= htmlspecialchars($_GET['id'] ?? '') ?>" method="POST">
-    <div class="row align-items-center">
+<section class="container mt-5">
+    <h1 class="h3 my-4"><?= htmlspecialchars($title ?? 'Modifier le livre'); ?></h1>
+    <form action="index.php?action=edit&id=<?= htmlspecialchars($_GET['id'] ?? '') ?>" method="POST" enctype="multipart/form-data">
+        <div class="row align-items-center bg-secondary mb-5">
 
-        <div class="col-12 col-lg-6">
-            <img src="assets/img/default-book.jpg"
-                class="d-block mx-lg-auto img-fluid auth-cover"
-                alt="Image d'illustration"
-                loading="lazy">
+            <div class="col-12 col-lg-6">
+                <?php
+                if (!empty($_GET['id'])) {
+                    $ImagePath = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg';
+                } else {
+                    $ImagePath = 'assets/img/default-book.jpg';
+                }
+                ?>
 
-            <div class="mt-4">
-                <label for="image" class="form-label">Modifier l'image</label>
-                <input type="url" name="image" id="image" class="form-control" placeholder="<?= htmlspecialchars($book->getImage()); ?>" value="<?= htmlspecialchars($_POST['image'] ?? '') ?>">
-            </div>
-        </div>
+                <img src="<?= htmlspecialchars($ImagePath) ?>"
+                    class="d-block mx-lg-auto img-fluid edit-book-cover"
+                    alt="Image d'illustration"
+                    loading="lazy">
 
-
-        <div class="col-lg-6 py-5">
-
-            <?php if (isset($errors) && !empty($errors)): ?>
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?= htmlspecialchars($error) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div class="mt-4">
+                    <label for="image" class="text-primary text-decoration-underline edit-image-label">Modifier l'image</label>
+                    <input class="d-none" type="file" id="image" name="image" accept="image/*">
                 </div>
-            <?php endif; ?>
+            </div>
+
+
+            <div class="col-lg-6 py-5">
+
+                <?php if (isset($errors) && !empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            <?php foreach ($errors as $error): ?>
+                                <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
 
 
 
@@ -42,7 +50,7 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" name="description" id="description" class="form-control" placeholder="<?= htmlspecialchars($book->getDescription()); ?>" value="<?= htmlspecialchars($_POST['description'] ?? '') ?>" required>
+                    <textarea name="description" id="description" class="form-control" placeholder="<?= htmlspecialchars($book->getDescription()); ?>" rows="4" required><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
                 </div>
 
                 <div class="mb-3">
@@ -63,6 +71,6 @@
 
             </div>
 
-    </div>
-        </form>
+        </div>
+    </form>
 </section>
