@@ -123,3 +123,9 @@ svg {
   width: 100%;
   object-fit: cover;
 }
+
+.edit-book-cover {
+  height: 50vh;
+  width: 100%;
+  object-fit: cover;
+}
