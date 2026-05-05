@@ -69,6 +69,12 @@
 </section>
 
 <div class="container my-5 ">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0">Ma bibliothèque</h2>
+        <a href="index.php?action=addBook" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Ajouter un livre
+        </a>
+    </div>
     <div class="table-responsive bg-secondary">
         <table class="table table-striped table-hover mb-0 align-middle">
             <thead>
@@ -100,8 +106,8 @@
                             <?php endif; ?>
                         </td>
                         <td class="text-center pe-4">
-                            <a href="#" class="text-dark text-decoration-underline me-3 small">Éditer</a>
-                            <a href="#" class="text-danger text-decoration-underline small">Supprimer</a>
+                            <a href="index.php?action=editBook&id=<?= $book->getId() ?>" class="text-dark text-decoration-underline me-3 small">Éditer</a>
+                            <a href="index.php?action=deleteBook&id=<?= $book->getId() ?>" class="text-danger text-decoration-underline small">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
