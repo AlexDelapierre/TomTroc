@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg container bg-primary">
+    <nav class="navbar navbar-expand-lg container">
         <a class="navbar-brand me-lg-5" href="/">
             <img src="/assets/icons/logo.svg" alt="TomTroc" class="navbar-logo d-inline-block align-text-top">
         </a>
