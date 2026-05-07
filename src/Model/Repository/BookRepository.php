@@ -72,6 +72,18 @@ class BookRepository
         return $books;
     }
 
+    public function findAvailableByUser(int $userId): array
+    {
+        $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id AND is_available = 1");
+        $query->execute(['user_id' => $userId]);
+
+        $books = [];
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($data);
+        }
+        return $books;
+    }
+
     public function findById(int $id): ?Book
     {
         $query = $this->db->prepare("SELECT * FROM book WHERE id = :id");
