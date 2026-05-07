@@ -1,4 +1,4 @@
-<section class="py-5">
+<section class="py-5 bg-secondary">
     <div class="container container-sm">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
             <h1 class="mb-3 mb-md-0">Nos livres à l’échange</h1>

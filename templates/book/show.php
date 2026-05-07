@@ -1,10 +1,10 @@
-<section class="container container-sm">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+<section class="container">
+    <div class="row py-5 bg-secondary">
 
         <div class="col-10 col-sm-8 col-lg-6">
             <img src="<?= htmlspecialchars($book->getImage() ?? 'assets/img/default-book.jpg'); ?>"
                 class="d-block mx-lg-auto img-fluid"
-                alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()) ?>" width="700" height="500" loading="lazy">
         </div>
 
         <div class="col-lg-6">
@@ -13,18 +13,27 @@
             </h1>
             <p class="h4 text-muted mb-3">Par <?= htmlspecialchars($book->getAuthor()); ?></p>
 
+            <hr class="w-25">
+
             <p class="fw-bold mb-1">Description</p>
             <p class="lead">
                 <?= htmlspecialchars($book->getDescription() ?? 'Aucune description disponible.'); ?>
             </p>
 
-            <p class="fw-bold mb-1">Propriétaire</p>
-            <p class="lead">
-                <?= htmlspecialchars($book->getUser()->getUsername()); ?>
-            </p>
+            <p class="fw-bold mb-4">Propriétaire</p>
+            <div class="d-inline-flex align-items-center rounded-5 bg-white p-2 pe-4 mb-4">
+                <?php $avatarPath = $book->getUser()->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($book->getUser()->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
+                <img src="<?= $avatarPath ?>"
+                    class="rounded-circle me-3 avatar-sm"
+                    alt="Avatar de <?= htmlspecialchars($book->getUser()->getUsername()) ?>"
+                    loading="lazy">
+                <p class="lead mb-0">
+                    <?= htmlspecialchars($book->getUser()->getUsername()); ?>
+                </p>
+            </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
-                <a href="index.php?action=contact&id=<?= $book->getId(); ?>" class="btn btn-primary btn-lg px-4 me-md-2 rounded-2">
+            <div class="d-grid mt-4">
+                <a href="index.php?action=contact&id=<?= $book->getId(); ?>" class="btn btn-primary btn-lg rounded-2 w-100">
                     Envoyer un message
                 </a>
             </div>
