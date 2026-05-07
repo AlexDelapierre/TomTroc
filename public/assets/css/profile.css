@@ -1,17 +1,3 @@
-/* Couleurs personnalisées pour le Zebra Striping (Bootstrap 5) */
-.table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-accent-bg: #edf2f7 !important;
-  color: inherit;
-  box-shadow: inset 0 0 0 9999px #edf2f7 !important; /* Force la couleur sur certains navigateurs */
-}
-
-/* Typographie et détails de l'en-tête */
-thead th {
-  font-size: 11px;
-  letter-spacing: 0.05rem;
-  border-bottom: 1px solid #eee !important;
-}
-
 /* Modificateurs de profil */
 .profile-avatar {
   width: 150px;
@@ -39,19 +25,9 @@ thead th {
   text-underline-offset: 3px; /* Pour un rendu plus propre */
 }
 
-/* Rend le fond des lignes transparent pour voir le bg-secondary du conteneur */
-.table {
-  --bs-table-bg: transparent !important;
-}
-
-/* On s'assure que le header reste propre sur le fond gris */
-thead {
-  background-color: transparent;
-}
-
 /* Badge pour les livres disponibles */
 .badge-available {
-  background-color: var(--primary);
+  background-color: var(--color-primary) !important;
 }
 
 /* Badge pour les livres non disponibles */

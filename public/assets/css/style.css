@@ -1,24 +1,31 @@
+@import url("header.css");
+@import url("footer.css");
+@import url("profile.css");
+@import url("table.css");
+
 /* ==========================================================================
    1. VARIABLES & CONFIGURATION
    ========================================================================== */
 :root {
   /* Couleurs principales */
-  --primary: #00ac66;
-  --primary-rgb: 0, 172, 102;
+  --color-primary: #00ac66;
+  --color-primary-rgb: rgb(0, 172, 102);
+  --color-warm-white: #faf9f7;
+  --color-light-gray: #f5f3ef;
+  --color-medium-gray: #a6a6a6;
+  --color-dark-gray: #292929;
+  --color-blue: #edf2f6;
 
-  /* Textes */
-  --text-title: #292929;
-  --text-body: #a6a6a6;
+  /* 2. Surcharge des variables Bootstrap */
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: var(--color-primary-rgb);
 
-  /* Backgrounds */
-  --bg-primary: #f5f3ef;
-  --bg-secondary: #faf9f7;
-  /* --bg-tertiary: #edf2f6; */
+  /* On change le fond du body et le texte par défaut */
+  --bs-body-bg: var(--color-light-gray);
+  /* --bs-body-color: var(--color-dark-gray); */
 
-  /* Surcharge Bootstrap directe */
-  --bs-primary: var(--primary);
-  --bs-primary-rgb: var(--primary-rgb);
-  --bs-body-bg: var(--bg-primary);
+  /* On peut aussi changer les liens */
+  --bs-link-color: var(--color-primary);
 
   /* Design système */
   --spacing-lg: 5rem;
@@ -30,16 +37,16 @@
    ========================================================================== */
 
 .bg-primary {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--color-light-gray) !important;
 }
 
 .bg-secondary {
-  background-color: var(--bg-secondary) !important;
+  background-color: var(--color-warm-white) !important;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: var(--color-light-gray);
   display: flex;
   flex-direction: column;
 }
@@ -77,26 +84,32 @@ svg {
   width: auto;
 }
 
+.avatar-sm {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: var(--primary);
-  --bs-btn-border-color: var(--primary);
-  --bs-btn-hover-bg: var(--primary);
-  --bs-btn-hover-border-color: var(--primary);
-  --bs-btn-active-bg: var(--primary);
-  --bs-btn-focus-shadow-rgb: var(--primary-rgb);
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-bg: var(--color-primary);
+  --bs-btn-hover-border-color: var(--color-primary);
+  --bs-btn-active-bg: var(--color-primary);
+  --bs-btn-focus-shadow-rgb: var(--color-primary-rgb);
 }
 
 .btn-secondary {
-  --bs-btn-color: var(--primary);
+  --bs-btn-color: var(--color-primary);
   --bs-btn-bg: transparent;
-  --bs-btn-border-color: var(--primary);
+  --bs-btn-border-color: var(--color-primary);
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: var(--primary);
-  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--color-primary);
+  --bs-btn-hover-border-color: var(--color-primary);
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: var(--primary);
-  --bs-btn-focus-shadow-rgb: var(--primary-rgb);
+  --bs-btn-active-bg: var(--color-primary);
+  --bs-btn-focus-shadow-rgb: var(--color-primary-rgb);
 }
 
 /* ==========================================================================
