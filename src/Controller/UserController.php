@@ -122,9 +122,9 @@ class UserController extends AbstractController
 
         // On récupère les livres de l'utilisateur depuis le Repo
         $bookRepo = new BookRepository();
-        $books = $bookRepo->findByUser($user->getId());
+        $AvailableBooks = $bookRepo->findAvailableByUser($user->getId());
         // On compte le nombre de livres
-        $bookCount = count($books);
+        $bookCount = count($AvailableBooks);
 
         // Variables pour gérer les erreurs/succès si envoyées par updateProfile
         $error = $_SESSION['error_profile'] ?? null;
@@ -134,7 +134,7 @@ class UserController extends AbstractController
         $this->render('user/profile', [
             'title' => 'Mon Compte',
             'user' => $user,
-            'books' => $books,
+            'books' => $AvailableBooks,
             'bookCount' => $bookCount,
             'error' => $error,
             'success' => $success
@@ -223,9 +223,17 @@ class UserController extends AbstractController
             throw new \Exception("L'utilisateur demandé est introuvable.");
         }
 
+        // On récupère les livres de l'utilisateur depuis le Repo
+        $bookRepo = new BookRepository();
+        $books = $bookRepo->findByUser($user->getId());
+        // On compte le nombre de livres
+        $bookCount = count($books);
+
         $this->render('user/public_profile', [
             'title' => 'Profil de ' . htmlspecialchars($user->getUsername()),
-            'user' => $user
+            'user' => $user,
+            'books' => $books,
+            'bookCount' => $bookCount
         ]);
     }
 }
