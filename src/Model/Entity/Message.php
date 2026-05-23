@@ -3,13 +3,20 @@
 namespace App\Model\Entity;
 
 use App\Core\AbstractEntity;
+use DateTimeImmutable;
 
 class Message extends AbstractEntity
 {
     private int $senderId;
     private int $receiverId;
     private string $content;
-    private string $createdAt;
+    private DateTimeImmutable $createdAt;
+
+    public function __construct(array $data = [])
+    {
+        $this->createdAt = new DateTimeImmutable();
+        parent::__construct($data);
+    }
 
     public function getSenderId(): int
     {
@@ -38,8 +45,17 @@ class Message extends AbstractEntity
         $this->content = $content;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function setCreatedAt(string|DateTimeImmutable $createdAt): void
+    {
+        if (is_string($createdAt)) {
+            $this->createdAt = new DateTimeImmutable($createdAt);
+        } else {
+            $this->createdAt = $createdAt;
+        }
     }
 }
