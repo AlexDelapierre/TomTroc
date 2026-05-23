@@ -55,7 +55,18 @@ abstract class AbstractController
      */
     protected function isConnected(): bool
     {
-        return isset($_SESSION['user']);
+        if (!isset($_SESSION['user'])) {
+            $this->redirect('index.php?action=login');
+        }
+        return true;
+    }
+
+    /**
+     * Retourne l'ID de l'utilisateur connecté en session
+     */
+    protected function getSessionUserId(): ?int
+    {
+        return $_SESSION['user']['id'] ?? null;
     }
 
     /**
