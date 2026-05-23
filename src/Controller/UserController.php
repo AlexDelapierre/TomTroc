@@ -65,7 +65,7 @@ class UserController extends AbstractController
     public function login()
     {
         // Redirection si déjà connecté
-        if ($this->isConnected()) {
+        if (isset($_SESSION['user'])) {
             $this->redirect('/');
         }
 
@@ -111,14 +111,12 @@ class UserController extends AbstractController
      */
     public function showProfile()
     {
-        // On vérifie que l'utilisateur est bien connecté
-        if (!$this->isConnected()) {
-            $this->redirect('index.php?action=login');
-        }
+        // On vérifie que l'utilisateur est bien connecté via isConnected() qui redirigera si besoin
+        $this->isConnected();
 
         // On récupère les données de l'utilisateur depuis le Repo pour avoir l'objet User complet
         $userRepo = new UserRepository();
-        $user = $userRepo->findById($_SESSION['user']['id']);
+        $user = $userRepo->findById($this->getSessionUserId());
 
         // On récupère les livres de l'utilisateur depuis le Repo
         $bookRepo = new BookRepository();
@@ -147,12 +145,14 @@ class UserController extends AbstractController
      */
     public function updateProfile()
     {
-        if (!$this->isConnected() || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+        $this->isConnected();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('index.php?action=profile');
         }
 
         $userRepo = new UserRepository();
-        $user = $userRepo->findById($_SESSION['user']['id']);
+        $user = $userRepo->findById($this->getSessionUserId());
 
         if (!$user) {
             $this->redirect('index.php?action=logout');

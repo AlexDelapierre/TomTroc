@@ -46,9 +46,7 @@ class BookController extends AbstractController
     public function add()
     {
         // Vérification de la connexion
-        if (!$this->isConnected()) {
-            $this->redirect('index.php?action=login');
-        }
+        $this->isConnected();
 
         $errors = [];
         $book = new Book();
@@ -57,7 +55,7 @@ class BookController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $book->hydrate($_POST);
-                $book->setUserId($_SESSION['user']['id']);
+                $book->setUserId($this->getSessionUserId());
 
                 if (empty($book->getTitle()) || empty($book->getAuthor())) {
                     $errors[] = "Le titre et l'auteur sont obligatoires.";
@@ -85,9 +83,7 @@ class BookController extends AbstractController
     public function edit()
     {
         // Vérification de la connexion
-        if (!$this->isConnected()) {
-            $this->redirect('index.php?action=login');
-        }
+        $this->isConnected();
 
         $id = $_GET['id'] ?? null;
         if (!$id) {
@@ -97,7 +93,7 @@ class BookController extends AbstractController
         $repo = new BookRepository();
         $book = $repo->findById((int)$id);
 
-        if (!$book || $book->getUserId() !== $_SESSION['user']['id']) {
+        if (!$book || $book->getUserId() !== $this->getSessionUserId()) {
             throw new \Exception("Vous n'avez pas l'autorisation de modifier ce livre.");
         }
 
@@ -108,7 +104,7 @@ class BookController extends AbstractController
             try {
                 $book->hydrate($_POST);
                 // On s'assure que le livre reste lié à son propriétaire
-                $book->setUserId($_SESSION['user']['id']);
+                $book->setUserId($this->getSessionUserId());
 
                 if (empty($book->getTitle()) || empty($book->getAuthor())) {
                     $errors[] = "Le titre et l'auteur sont obligatoires.";
@@ -134,9 +130,7 @@ class BookController extends AbstractController
 
     public function delete()
     {
-        if (!$this->isConnected()) {
-            $this->redirect('index.php?action=login');
-        }
+        $this->isConnected();
 
         $id = $_GET['id'] ?? null;
         if (!$id) {
@@ -146,7 +140,7 @@ class BookController extends AbstractController
         $repo = new BookRepository();
         $book = $repo->findById((int)$id);
 
-        if ($book && $book->getUserId() === $_SESSION['user']['id']) {
+        if ($book && $book->getUserId() === $this->getSessionUserId()) {
             $repo->delete((int)$id);
         } else {
             throw new \Exception("Action non autorisée.");
