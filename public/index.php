@@ -70,7 +70,13 @@ try {
         // --- Section Messages ---
         case 'messages':
             $messageController = new MessageController();
-            // $mesageController->list();
+            $messageController->list();
+            break;
+
+        case 'showMessage':
+            $messageController = new MessageController();
+            $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+            $messageController->show($id);
             break;
 
         // Section connexion.
