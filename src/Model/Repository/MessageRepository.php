@@ -38,54 +38,39 @@ class MessageRepository
         return $data ? new Message($data) : null;
     }
 
+    public function getLastMessagesByUser(int $userId): array
+    {
+        $query = $this->db->prepare("
+            SELECT m.*,
+            IF(m.sender_id = ?, m.receiver_id, m.sender_id) as contact_id
+            FROM message m
+            WHERE m.id IN (
+                SELECT MAX(id)
+                FROM message
+                WHERE sender_id = ? OR receiver_id = ?
+                GROUP BY IF(sender_id = ?, receiver_id, sender_id)
+            )
+            ORDER BY m.created_at DESC
+        ");
+
+        $query->execute([$userId, $userId, $userId, $userId]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getConversation(int $userId1, int $userId2): array
     {
         $query = $this->db->prepare("
             SELECT * FROM message
-            WHERE (sender_id = :u1 AND receiver_id = :u2)
-            OR (sender_id = :u2 AND receiver_id = :u1)
+            WHERE (sender_id = ? AND receiver_id = ?)
+            OR (sender_id = ? AND receiver_id = ?)
             ORDER BY created_at ASC
         ");
-        $query->execute(['u1' => $userId1, 'u2' => $userId2]);
+        $query->execute([$userId1, $userId2, $userId2, $userId1]);
 
         $messages = [];
         while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
             $messages[] = new Message($data);
         }
         return $messages;
-    }
-
-    public function update(Message $message): bool
-    {
-        $query = $this->db->prepare("UPDATE message SET content = :content WHERE id = :id");
-        return $query->execute([
-            'content' => $message->getContent(),
-            'id'      => $message->getId()
-        ]);
-    }
-
-    public function delete(int $id): bool
-    {
-        $query = $this->db->prepare("DELETE FROM message WHERE id = :id");
-        return $query->execute(['id' => $id]);
-    }
-
-    public function getLastMessagesByUser(int $userId): array
-    {
-        $query = $this->db->prepare("
-            SELECT m.*,
-            IF(m.sender_id = :userId, m.receiver_id, m.sender_id) as contact_id
-            FROM message m
-            WHERE m.id IN (
-                SELECT MAX(id)
-                FROM message
-                WHERE sender_id = :userId OR receiver_id = :userId
-                GROUP BY IF(sender_id = :userId, receiver_id, sender_id)
-            )
-            ORDER BY m.created_at DESC
-        ");
-
-        $query->execute(['userId' => $userId]);
-        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }
