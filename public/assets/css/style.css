@@ -44,6 +44,10 @@
   background-color: var(--color-warm-white) !important;
 }
 
+.bg-tertiary {
+  background-color: var(--color-blue) !important;
+}
+
 body {
   min-height: 100vh;
   background-color: var(--color-light-gray);
@@ -110,6 +114,20 @@ svg {
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: var(--color-primary);
   --bs-btn-focus-shadow-rgb: var(--color-primary-rgb);
+}
+
+/* Classe pour masquer les barres de défilement tout en gardant le scroll actif */
+.hide-scrollbar {
+  /* Pour Firefox */
+  scrollbar-width: none;
+
+  /* Pour Internet Explorer et Edge */
+  -ms-overflow-style: none;
+}
+
+/* Pour Chrome, Safari et Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* ==========================================================================
