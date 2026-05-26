@@ -26,7 +26,7 @@
                         </p>
                     </div>
                     <div class="text-center mt-4">
-                        <a href="/boutique" class="btn btn-secondary btn-lg px-4 rounded-2">Écrire un message</a>
+                        <a href="index.php?action=messages&id=<?= $publicUser->getId() ?>" class="btn btn-secondary btn-lg px-4 rounded-2 border-primary fw-bold text-dark bg-white">Écrire un message</a>
                     </div>
                 </div>
             </div>
