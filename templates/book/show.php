@@ -33,7 +33,7 @@
             </div>
 
             <div class="d-grid mt-4">
-                <a href="index.php?action=contact&id=<?= $book->getId(); ?>" class="btn btn-primary btn-lg rounded-2 w-100">
+                <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary btn-lg rounded-2 w-100">
                     Envoyer un message
                 </a>
             </div>
