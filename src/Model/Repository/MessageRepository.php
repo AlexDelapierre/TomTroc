@@ -4,6 +4,7 @@ namespace App\Model\Repository;
 
 use App\Core\Database;
 use App\Model\Entity\Message;
+use App\Model\Entity\User;
 use PDO;
 
 class MessageRepository
@@ -41,9 +42,16 @@ class MessageRepository
     public function getLastMessagesByUser(int $userId): array
     {
         $query = $this->db->prepare("
-            SELECT m.*,
-            IF(m.sender_id = ?, m.receiver_id, m.sender_id) as contact_id
+            SELECT
+                m.id, m.sender_id, m.receiver_id, m.content, m.created_at,
+                u.id as user_id,
+                u.username as user_username,
+                u.email as user_email,
+                u.password as user_password,
+                u.avatar as user_avatar,
+                u.created_at as user_created_at
             FROM message m
+            JOIN user u ON u.id = IF(m.sender_id = ?, m.receiver_id, m.sender_id)
             WHERE m.id IN (
                 SELECT MAX(id)
                 FROM message
@@ -54,7 +62,38 @@ class MessageRepository
         ");
 
         $query->execute([$userId, $userId, $userId, $userId]);
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $conversations = [];
+        foreach ($results as $data) {
+            // Extraction des données de l'utilisateur (on retire le préfixe user_)
+            $userData = [
+                'id' => $data['user_id'],
+                'username' => $data['user_username'],
+                'email' => $data['user_email'],
+                'password' => $data['user_password'],
+                'avatar' => $data['user_avatar'],
+                'created_at' => $data['user_created_at']
+            ];
+            $contact = new User($userData);
+
+            // Extraction des données du message
+            $messageData = [
+                'id' => $data['id'],
+                'sender_id' => $data['sender_id'],
+                'receiver_id' => $data['receiver_id'],
+                'content' => $data['content'],
+                'created_at' => $data['created_at']
+            ];
+            $message = new Message($messageData);
+
+            $conversations[] = [
+                'contact' => $contact,
+                'message' => $message
+            ];
+        }
+
+        return $conversations;
     }
 
     public function getConversation(int $userId1, int $userId2): array
