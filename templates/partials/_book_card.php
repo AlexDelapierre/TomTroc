@@ -1,6 +1,6 @@
 <article class="card h-100 bg-white border-0">
     <img src="<?= htmlspecialchars($book->getImage() ?? 'assets/img/default-book.jpg'); ?>"
-        class="card-img-top"
+        class="card-img-top book-cover-img"
         alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()); ?>">
 
     <div class="card-body d-flex flex-column">
