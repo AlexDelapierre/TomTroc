@@ -10,7 +10,7 @@
                 <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Rejoignez nos lecteurs passionnés</h1>
                 <p class="lead">Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux de la lecture. Nous croyons en la magie du partage de connaissances et d'histoires à travers les livres. </p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 rounded-2">Découvrir</button>
+                    <a href="index.php?action=books" class="btn btn-primary btn-lg px-4 me-md-2 rounded-2">Découvrir</a>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
         </ul>
 
         <div class="text-center mt-4">
-            <a href="/boutique" class="btn btn-primary btn-lg px-4 rounded-2">Voir tous les livres</a>
+            <a href="index.php?action=books" class="btn btn-primary btn-lg px-4 rounded-2">Voir tous les livres</a>
         </div>
     </div>
 </section>
@@ -44,38 +44,29 @@
         </p>
 
         <ul class="row list-unstyled">
-            <li class="col-12 col-md-6 col-lg-3 mb-4">
-                <article class="card h-100 shadow-sm p-3">
-                    <p class="mb-0 text-break">
-                        Inscrivez-vous gratuitement sur notre plateforme.
-                    </p>
-                </article>
-            </li>
-            <li class="col-12 col-md-6 col-lg-3 mb-4">
-                <article class="card h-100 shadow-sm p-3">
-                    <p class="mb-0 text-break">
-                        Ajoutez les livres que vous souhaitez échanger à votre profil.
-                    </p>
-                </article>
-            </li>
-            <li class="col-12 col-md-6 col-lg-3 mb-4">
-                <article class="card h-100 shadow-sm p-3">
-                    <p class="mb-0 text-break">
-                        Parcourez les livres disponibles chez d'autres membres.
-                    </p>
-                </article>
-            </li>
-            <li class="col-12 col-md-6 col-lg-3 mb-4">
-                <article class="card h-100 shadow-sm p-3">
-                    <p class="mb-0 text-break">
-                        Proposez un échange et discutez avec d'autres passionnés de lecture.
-                    </p>
-                </article>
-            </li>
+            <?php
+            $steps = [
+                "Inscrivez-vous gratuitement sur notre plateforme.",
+                "Ajoutez les livres que vous souhaitez échanger à votre profil.",
+                "Parcourez les livres disponibles chez d'autres membres.",
+                "Proposez un échange et discutez avec d'autres passionnés de lecture."
+            ];
+            foreach ($steps as $step):
+            ?>
+                <li class="col-12 col-md-6 col-lg-3 mb-4">
+                    <article class="card h-100 bg-white p-3 border-0 rounded-0">
+                        <p class="mb-0 text-break">
+                            <?= $step ?>
+                        </p>
+                    </article>
+                </li>
+            <?php
+            endforeach;
+            ?>
         </ul>
 
         <div class="text-center mt-4">
-            <a href="/boutique" class="btn btn-secondary btn-lg px-4 rounded-2">Voir tous les livres</a>
+            <a href="index.php?action=books" class="btn btn-secondary btn-lg px-4 rounded-2">Voir tous les livres</a>
         </div>
     </div>
 </section>
