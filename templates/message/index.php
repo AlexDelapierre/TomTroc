@@ -3,7 +3,7 @@
     <div class="row flex-grow-1">
         <!-- Liste des messages (visible tout le temps sur desktop, visible sur mobile si pas de message sélectionné) -->
         <div class="col-12 col-md-3 bg-secondary py-5 <?= !empty($isUrlIDContact) ? 'd-none d-md-flex' : 'd-flex' ?> flex-column overflow-auto hide-scrollbar">
-            <h1 class="mb-4 fs-3">Messagerie</h1>
+            <h1 class="mb-4">Messagerie</h1>
             <div>
                 <?php if (empty($conversations)) : ?>
                     <p class="text-muted p-3 mb-0 bg-white">Vous n'avez aucun message.</p>
@@ -42,7 +42,7 @@
             <?php if (!empty($contact)) : ?>
                 <div class="d-flex flex-column h-100">
                     <!-- En-tête conversation -->
-                    <div class="d-flex flex-column p-3">
+                    <div class="d-flex flex-column p-3 mb-5">
                         <?php
                         $contactAvatar = $contact->getAvatar() ? '/uploads/avatars/' . htmlspecialchars($contact->getAvatar()) : '/assets/img/default_avatar.jpg';
                         ?>
