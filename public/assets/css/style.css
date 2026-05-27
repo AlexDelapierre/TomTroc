@@ -53,6 +53,9 @@ body {
   background-color: var(--color-light-gray);
   display: flex;
   flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 0.875rem; /* 14px */
 }
 
 main {
@@ -65,6 +68,28 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 1.875rem; /* 30px */
+}
+
+h2 {
+  font-size: 1.75rem; /* 28px */
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1rem; /* 16px */
+  }
+  h1 {
+    font-size: 2.25rem; /* 36px */
+  }
+  h2 {
+    font-size: 2rem; /* 32px */
+  }
 }
 
 img,
