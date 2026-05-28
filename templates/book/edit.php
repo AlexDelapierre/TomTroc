@@ -2,7 +2,7 @@
     <section class="container mt-5 bg-white">
         <a href="javascript:history.back()" class="text-decoration-none mb-2 d-inline-block">&lt;- retour</a>
         <h1 class="h3 my-4"><?= htmlspecialchars($title ?? 'Modifier le livre'); ?></h1>
-        <form action="index.php?action=edit&id=<?= htmlspecialchars($_GET['id'] ?? '') ?>" method="POST" enctype="multipart/form-data">
+        <form action="index.php?action=<?= $isEdit ? 'editBook&id=' . $book->getId() : 'addBook' ?>" method="POST" enctype="multipart/form-data">
             <div class="row align-items-center mb-5">
 
                 <div class="col-12 col-lg-6">
@@ -14,7 +14,7 @@
                     }
                     ?>
 
-                    <img src="<?= htmlspecialchars($ImagePath) ?>"
+                    <img id="book-cover-preview" src="<?= htmlspecialchars($ImagePath) ?>"
                         class="d-block mx-lg-auto img-fluid edit-book-cover"
                         alt="Image d'illustration"
                         loading="lazy">
@@ -75,3 +75,5 @@
         </form>
     </section>
 </div>
+
+<script src="assets/js/image-preview.js"></script>
