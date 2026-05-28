@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS message (
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
     content TEXT NOT NULL,
+    is_read TINYINT(1) DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_msg_sender FOREIGN KEY (sender_id) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT fk_msg_receiver FOREIGN KEY (receiver_id) REFERENCES user(id) ON DELETE CASCADE
