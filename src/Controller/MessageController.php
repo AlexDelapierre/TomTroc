@@ -53,6 +53,9 @@ class MessageController extends AbstractController
                 }
             }
 
+            // Marque les messages de ce contact comme lus
+            $repo->markConversationAsRead($userId, $contact->getId());
+
             $messages = $repo->getConversation($userId, $contact->getId());
         }
 
