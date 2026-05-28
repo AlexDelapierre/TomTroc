@@ -98,7 +98,8 @@
                     <?php foreach ($books as $book): ?>
                         <tr>
                             <td class="ps-4">
-                                <img src="<?= htmlspecialchars($book->getImage() ?? '') ?>" alt="Couverture" class="img-fluid book-img-custom">
+                                <?php $profileBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
+                                <img src="<?= $profileBookImage ?>" alt="Couverture" class="img-fluid book-img-custom">
                             </td>
                             <td class="fw-normal"><?= htmlspecialchars($book->getTitle()) ?></td>
                             <td><?= htmlspecialchars($book->getAuthor()) ?></td>
