@@ -11,11 +11,17 @@ class MessageRepository
 {
     private PDO $db;
 
+    /**
+     * Initialise la connexion à la base de données
+     */
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Ajoute un nouveau message
+     */
     public function add(Message $message): bool
     {
         $query = $this->db->prepare("
@@ -30,6 +36,9 @@ class MessageRepository
         ]);
     }
 
+    /**
+     * Récupère un message par son ID
+     */
     public function findById(int $id): ?Message
     {
         $query = $this->db->prepare("SELECT * FROM message WHERE id = :id");
@@ -39,6 +48,9 @@ class MessageRepository
         return $data ? new Message($data) : null;
     }
 
+    /**
+     * Récupère la liste des dernières conversations d'un utilisateur
+     */
     public function getLastMessagesByUser(int $userId): array
     {
         $query = $this->db->prepare("
@@ -96,6 +108,9 @@ class MessageRepository
         return $conversations;
     }
 
+    /**
+     * Récupère tous les messages entre deux utilisateurs
+     */
     public function getConversation(int $userId1, int $userId2): array
     {
         $query = $this->db->prepare("
@@ -111,5 +126,31 @@ class MessageRepository
             $messages[] = new Message($data);
         }
         return $messages;
+    }
+
+    /**
+     * Compte le nombre de messages non lus pour un utilisateur
+     */
+    public function getUnreadCount(int $userId): int
+    {
+        $query = $this->db->prepare("SELECT COUNT(*) FROM message WHERE receiver_id = :receiver_id AND is_read = 0");
+        $query->execute(['receiver_id' => $userId]);
+        return (int) $query->fetchColumn();
+    }
+
+    /**
+     * Marque les messages d'une conversation comme lus
+     */
+    public function markConversationAsRead(int $receiverId, int $senderId): bool
+    {
+        $query = $this->db->prepare("
+            UPDATE message
+            SET is_read = 1
+            WHERE receiver_id = :receiver_id AND sender_id = :sender_id AND is_read = 0
+        ");
+        return $query->execute([
+            'receiver_id' => $receiverId,
+            'sender_id' => $senderId
+        ]);
     }
 }
