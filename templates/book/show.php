@@ -2,7 +2,8 @@
     <div class="row py-5 bg-secondary">
 
         <div class="col-10 col-sm-8 col-lg-6">
-            <img src="<?= htmlspecialchars($book->getImage() ?? 'assets/img/default-book.jpg'); ?>"
+            <?php $showBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
+            <img src="<?= $showBookImage ?>"
                 class="d-block mx-lg-auto img-fluid"
                 alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()) ?>" width="700" height="500" loading="lazy">
         </div>
@@ -21,16 +22,18 @@
             </p>
 
             <p class="fw-bold mb-4">Propriétaire</p>
-            <div class="d-inline-flex align-items-center rounded-5 bg-white p-2 pe-4 mb-4">
-                <?php $avatarPath = $book->getUser()->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($book->getUser()->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
-                <img src="<?= $avatarPath ?>"
-                    class="rounded-circle me-3 avatar-sm"
-                    alt="Avatar de <?= htmlspecialchars($book->getUser()->getUsername()) ?>"
-                    loading="lazy">
-                <p class="lead mb-0">
-                    <?= htmlspecialchars($book->getUser()->getUsername()); ?>
-                </p>
-            </div>
+            <a href="index.php?action=publicProfile&id=<?= $book->getUser()->getId(); ?>" class="text-decoration-none text-dark d-inline-block">
+                <div class="d-inline-flex align-items-center rounded-5 bg-white p-2 pe-4 mb-4 user-badge-hover">
+                    <?php $avatarPath = $book->getUser()->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($book->getUser()->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
+                    <img src="<?= $avatarPath ?>"
+                        class="rounded-circle me-3 avatar-sm"
+                        alt="Avatar de <?= htmlspecialchars($book->getUser()->getUsername()) ?>"
+                        loading="lazy">
+                    <p class="lead mb-0">
+                        <?= htmlspecialchars($book->getUser()->getUsername()); ?>
+                    </p>
+                </div>
+            </a>
 
             <div class="d-grid mt-4">
                 <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary btn-lg rounded-2 w-100">
