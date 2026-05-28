@@ -1,10 +1,3 @@
-<?php
-$unreadMessagesCount = 0;
-if (isset($_SESSION['user'])) {
-    $messageRepo = new \App\Model\Repository\MessageRepository();
-    $unreadMessagesCount = $messageRepo->getUnreadCount($_SESSION['user']['id']);
-}
-?>
 <header>
     <nav class="navbar navbar-expand-lg container">
         <a class="navbar-brand me-lg-5" href="/">

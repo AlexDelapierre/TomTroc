@@ -12,6 +12,15 @@ abstract class AbstractController
      */
     protected function render(string $template, array $data = []): void
     {
+        // On récupère globablement le nombre de messages non lus pour l'injecter dans _header.php
+        if (!isset($data['unreadMessagesCount'])) {
+            $data['unreadMessagesCount'] = 0;
+            if (isset($_SESSION['user'])) {
+                $messageRepo = new \App\Model\Repository\MessageRepository();
+                $data['unreadMessagesCount'] = $messageRepo->getUnreadCount($_SESSION['user']['id']);
+            }
+        }
+
         extract($data);
 
         ob_start();
