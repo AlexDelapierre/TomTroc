@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\AbstractController;
 use App\Model\Entity\Book;
 use App\Model\Repository\BookRepository;
+use App\Service\UploadService;
 
 class BookController extends AbstractController
 {
@@ -62,10 +63,14 @@ class BookController extends AbstractController
                 }
 
                 if (empty($errors)) {
-                    $repo = new BookRepository();
-                    $repo->add($book);
-                    $this->redirect('index.php?action=books');
-                    return;
+                    $this->handleImageUpload($book, $errors);
+
+                    if (empty($errors)) {
+                        $repo = new BookRepository();
+                        $repo->add($book);
+                        $this->redirect('index.php?action=profile');
+                        return;
+                    }
                 }
             } catch (\Exception $e) {
                 $errors[] = "Une erreur est survenue lors de l'ajout.";
@@ -111,9 +116,13 @@ class BookController extends AbstractController
                 }
 
                 if (empty($errors)) {
-                    $repo->update($book);
-                    $this->redirect('index.php?action=books');
-                    return;
+                    $this->handleImageUpload($book, $errors);
+
+                    if (empty($errors)) {
+                        $repo->update($book);
+                        $this->redirect('index.php?action=books');
+                        return;
+                    }
                 }
             } catch (\Exception $e) {
                 $errors[] = "Une erreur est survenue lors de la modification.";
@@ -147,5 +156,19 @@ class BookController extends AbstractController
         }
 
         $this->redirect('index.php?action=books');
+    }
+
+    private function handleImageUpload(Book $book, array &$errors): void
+    {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            try {
+                $uploadService = new UploadService();
+                $targetDir = __DIR__ . '/../../public/uploads/books/';
+                $newFilename = $uploadService->uploadImage($_FILES['image'], $targetDir, 'book_', $book->getImage());
+                $book->setImage($newFilename);
+            } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
     }
 }
