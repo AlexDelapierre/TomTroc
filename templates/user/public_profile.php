@@ -26,7 +26,7 @@
                         </p>
                     </div>
                     <div class="text-center mt-4">
-                        <a href="index.php?action=messages&id=<?= $publicUser->getId() ?>" class="btn btn-secondary btn-lg px-4 rounded-2 border-primary fw-bold text-dark bg-white">Écrire un message</a>
+                        <a href="index.php?action=messages&id=<?= $user->getId() ?>" class="btn btn-secondary btn-lg px-4 rounded-2 border-primary fw-bold text-dark bg-white">Écrire un message</a>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,8 @@
                             <?php foreach ($books as $book): ?>
                                 <tr>
                                     <td class="ps-4">
-                                        <img src="<?= htmlspecialchars($book->getImage() ?? '') ?>" alt="Couverture" class="img-fluid book-img-custom">
+                                        <?php $publicProfileBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
+                                        <img src="<?= $publicProfileBookImage ?>" alt="Couverture" class="img-fluid book-img-custom">
                                     </td>
                                     <td class="fw-normal"><?= htmlspecialchars($book->getTitle()) ?></td>
                                     <td><?= htmlspecialchars($book->getAuthor()) ?></td>
