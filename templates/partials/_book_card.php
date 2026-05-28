@@ -1,5 +1,6 @@
 <article class="card h-100 bg-white border-0">
-    <img src="<?= htmlspecialchars($book->getImage() ?? 'assets/img/default-book.jpg'); ?>"
+    <?php $cardBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
+    <img src="<?= $cardBookImage ?>"
         class="card-img-top book-cover-img"
         alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()); ?>">
 
