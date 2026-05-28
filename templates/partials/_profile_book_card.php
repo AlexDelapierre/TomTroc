@@ -2,7 +2,8 @@
     <div class="container-sm py-5">
         <div class="row">
             <div class="col-4">
-                <img src="<?= htmlspecialchars($book->getImage() ?? 'assets/img/default-book.jpg'); ?>"
+                <?php $bookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
+                <img src="<?= $bookImage ?>"
                     class="card-img-top"
                     alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()); ?>"
                     loading="lazy">
