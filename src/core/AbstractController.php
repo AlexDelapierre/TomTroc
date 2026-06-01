@@ -12,6 +12,9 @@ abstract class AbstractController
      */
     protected function render(string $template, array $data = []): void
     {
+        // On rend l'action courante disponible pour la navigation dynamique dans _header.php
+        $data['currentAction'] = $_GET['action'] ?? 'home';
+
         // On récupère globablement le nombre de messages non lus pour l'injecter dans _header.php
         if (!isset($data['unreadMessagesCount'])) {
             $data['unreadMessagesCount'] = 0;
