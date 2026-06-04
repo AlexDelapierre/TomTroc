@@ -130,7 +130,7 @@ class BookController extends AbstractController
         }
 
         $this->render('book/edit', [
-            'title' => 'Modifier le livre',
+            'title' => 'Modifier les informations',
             'book' => $book,
             'errors' => $errors,
             'isEdit' => true
