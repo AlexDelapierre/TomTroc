@@ -1,63 +1,21 @@
-<div class="bg-secondary">
-    <section class="container">
+<?php $isEditable = false; ?>
+
+<div class="bg-secondary h-100 py-5">
+    <section class="container-navbar-width">
 
         <div class="row g-4 align-items-stretch py-5">
 
             <div class="col-12 col-lg-4">
-                <div class="d-flex flex-column justify-content-center text-center rounded-4 bg-white">
-                    <?php $avatarPath = $user->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($user->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
-                    <div>
-                        <img src="<?= $avatarPath ?>"
-                            class="rounded-circle mb-2 d-block mx-auto profile-avatar"
-                            alt="Avatar de <?= htmlspecialchars($user->getUsername()) ?>"
-                            loading="lazy">
-                    </div>
-                    <hr>
-                    <div>
-                        <h2><?= htmlspecialchars($user->getUsername()) ?></h2>
-                        <?php $age = $user->getAccountAge(); ?>
-                        <p>
-                            Membre depuis <?= ($age->y > 0) ? $age->y . " an(s)" : $age->days . " jours" ?>
-                        </p>
-                        <p>Bibliothèque</p>
-                        <p class="d-flex justify-content-center align-items-center">
-                            <img src="assets/icons/books.svg" alt="Icône livres" width="20" height="20" class="me-2">
-                            <?= $bookCount ?> livre<?= $bookCount > 1 ? 's' : '' ?>
-                        </p>
-                    </div>
-                    <div class="text-center mt-4">
-                        <a href="index.php?action=messages&id=<?= $user->getId() ?>" class="btn btn-secondary btn-lg px-4 rounded-2 border-primary fw-bold text-dark bg-white">Écrire un message</a>
-                    </div>
-                </div>
+                <?php
+                include __DIR__ . '/../partials/_UserProfileCard.php';
+                ?>
             </div>
 
             <div class="col-12 col-lg-8 d-none d-lg-block">
                 <div class="h-100 rounded-4 overflow-hidden bg-white">
-                    <table class="table table-striped table-hover mb-0 align-middle h-100">
-                        <thead>
-                            <tr class="small fw-bold text-muted">
-                                <th class="ps-4 py-3">PHOTO</th>
-                                <th class="py-3">TITRE</th>
-                                <th class="py-3">AUTEUR</th>
-                                <th class="py-3">DESCRIPTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($books as $book): ?>
-                                <tr>
-                                    <td class="ps-4">
-                                        <?php $publicProfileBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
-                                        <img src="<?= $publicProfileBookImage ?>" alt="Couverture" class="img-fluid book-img-custom">
-                                    </td>
-                                    <td class="fw-normal"><?= htmlspecialchars($book->getTitle()) ?></td>
-                                    <td><?= htmlspecialchars($book->getAuthor()) ?></td>
-                                    <td class="fst-italic text-secondary small description-cell">
-                                        <?= htmlspecialchars($book->getDescription()) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <?php
+                    include __DIR__ . '/../partials/_BookListTable.php';
+                    ?>
                 </div>
 
             </div>
