@@ -78,7 +78,6 @@ class MessageRepository
 
         $conversations = [];
         foreach ($results as $data) {
-            // Extraction des données de l'utilisateur (on retire le préfixe user_)
             $userData = [
                 'id' => $data['user_id'],
                 'username' => $data['user_username'],
