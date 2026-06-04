@@ -1,27 +1,32 @@
-<section class="container">
-    <div class="row py-5 bg-secondary">
-
-        <div class="col-10 col-sm-8 col-lg-6">
+<section class="mt-4">
+    <nav aria-label="breadcrumb" class="container-navbar-width d-none d-lg-block">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item text-xxs text-medium-gray"><a href="index.php?action=books" class="text-decoration-none text-xxs text-medium-gray">Nos livres</a></li>
+            <li class="breadcrumb-item text-xxs text-medium-gray" aria-current="page"><?= htmlspecialchars($book->getTitle()); ?></li>
+        </ol>
+    </nav>
+    <div class="row g-0 bg-secondary">
+        <div class="col-12 col-sm-8 col-lg-6">
             <?php $showBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
             <img src="<?= $showBookImage ?>"
-                class="d-block mx-lg-auto img-fluid"
+                class="d-block w-100 img-fluid object-fit-cover"
                 alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()) ?>" width="700" height="500" loading="lazy">
         </div>
 
-        <div class="col-lg-6">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+        <div class="col-lg-6 p-custom-large">
+            <h1 class="mb-3">
                 <?= htmlspecialchars($book->getTitle()); ?>
             </h1>
-            <p class="h4 text-muted mb-3">Par <?= htmlspecialchars($book->getAuthor()); ?></p>
+            <p class="text-medium-gray mb-4">Par <?= htmlspecialchars($book->getAuthor()); ?></p>
 
-            <hr class="w-25">
+            <hr class="hr-short">
 
-            <p class="fw-bold mb-1">Description</p>
-            <p class="lead">
+            <p class="text-xxs fw-bold text-dark mt-4 mb-3">Description</p>
+            <p class="mb-4">
                 <?= htmlspecialchars($book->getDescription() ?? 'Aucune description disponible.'); ?>
             </p>
 
-            <p class="fw-bold mb-4">Propriétaire</p>
+            <p class="text-xxs fw-bold text-dark mb-4">Propriétaire</p>
             <a href="index.php?action=publicProfile&id=<?= $book->getUser()->getId(); ?>" class="text-decoration-none text-dark d-inline-block">
                 <div class="d-inline-flex align-items-center rounded-5 bg-white p-2 pe-4 mb-4 user-badge-hover">
                     <?php $avatarPath = $book->getUser()->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($book->getUser()->getAvatar()) : 'assets/img/default-avatar.jpg'; ?>
@@ -35,12 +40,11 @@
                 </div>
             </a>
 
-            <div class="d-grid mt-4">
-                <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary btn-lg rounded-2 w-100">
+            <div class="d-grid mt-5">
+                <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary rounded-3 w-100">
                     Envoyer un message
                 </a>
             </div>
         </div>
-
     </div>
 </section>
