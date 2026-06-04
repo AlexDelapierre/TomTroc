@@ -1,8 +1,8 @@
-<section class="container">
-    <div class="row align-items-center">
+<section>
+    <div class="row g-0 bg-secondary">
 
-        <div class="col-lg-6 py-5">
-            <h1 class="text-center h3 mb-4">Connexion</h1>
+        <div class="col-lg-6 py-5 form-container">
+            <h1 class="my-5">Connexion</h1>
 
             <?php if (isset($error)): ?>
                 <div class="alert alert-danger" role="alert">
@@ -11,14 +11,14 @@
             <?php endif; ?>
 
             <form action="index.php?action=login<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Adresse email</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="exemple@test.fr" required>
+                <div class="mb-5">
+                    <label for="email" class="form-label text-xs">Adresse email</label>
+                    <input type="email" name="email" id="email" class="form-control form-control-lg bg-white" placeholder="" required>
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Mot de passe</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="••••••••" required>
+                <div class="mb-4">
+                    <label for="password" class="form-label text-xs">Mot de passe</label>
+                    <input type="password" name="password" id="password" class="form-control form-control-lg bg-white" placeholder="" required>
                 </div>
 
                 <div class="d-grid gap-2">
@@ -26,9 +26,9 @@
                 </div>
             </form>
 
-            <div class="text-center my-4">
-                <p class="mb-0 text-muted">Pas encore de compte ?</p>
-                <a href="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" class="text-decoration-none">Créer un compte TomTroc</a>
+            <div class="d-flex text-center gap-1 my-4">
+                <p class="mb-0 text-dark text-xs">Pas de compte ?</p>
+                <a href="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" class="text-dark text-xs">Inscrivez-vous</a>
             </div>
 
         </div>
