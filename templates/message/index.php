@@ -1,9 +1,9 @@
-<section class="container flex-grow-1 d-flex flex-column">
+<section class="container-navbar-width flex-grow-1 d-flex flex-column">
 
     <div class="row flex-grow-1">
         <!-- Liste des messages (visible tout le temps sur desktop, visible sur mobile si pas de message sélectionné) -->
         <div class="col-12 col-md-3 bg-secondary py-5 <?= !empty($isUrlIDContact) ? 'd-none d-md-flex' : 'd-flex' ?> flex-column overflow-auto hide-scrollbar">
-            <h1 class="mb-4">Messagerie</h1>
+            <h1 class="h3 mb-4">Messagerie</h1>
             <div>
                 <?php if (empty($conversations)) : ?>
                     <p class="text-muted p-3 mb-0 bg-white">Vous n'avez aucun message.</p>
@@ -11,7 +11,7 @@
                     <?php foreach ($conversations as $conv) :
                         $listContact = $conv['contact'];
                         $lastMsg = $conv['message'];
-                        $avatar = $listContact->getAvatar() ? '/uploads/avatars/' . htmlspecialchars($listContact->getAvatar()) : '/assets/img/default_avatar.jpg';
+                        $avatar = $listContact->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($listContact->getAvatar()) : 'assets/img/default-avatar.jpg';
                         $isActive = (isset($contact) && $contact && $listContact->getId() === $contact->getId()) ? 'bg-white' : '';
                     ?>
                         <a href="index.php?action=messages&id=<?= $listContact->getId() ?>"
@@ -23,14 +23,12 @@
 
                             <!-- Colonne 2 : Username & Message -->
                             <div class="overflow-hidden msg-contact-content">
-                                <span class="d-block fw-bold text-dark mb-1"><?= htmlspecialchars($listContact->getUsername()) ?></span>
-                                <span class="d-block text-muted text-truncate small"><?= htmlspecialchars($lastMsg->getContent()) ?></span>
+                                <span class="d-block fw-bold text-dark text-xs mb-1"><?= htmlspecialchars($listContact->getUsername()) ?></span>
+                                <span class="d-block text-truncate text-xss"><?= htmlspecialchars($lastMsg->getContent()) ?></span>
                             </div>
 
                             <!-- Colonne 3 : Heure -->
-                            <div class="text-end text-muted small ms-3 msg-contact-time">
-                                <?= $lastMsg->getCreatedAt()->format('H:i') ?>
-                            </div>
+                            <span class="text-xs text-dark text-end ms-3"><?= $lastMsg->getCreatedAt()->format('H:i') ?></span>
                         </a>
                         <div class="bg-white msg-separator"></div>
                     <?php endforeach; ?>
@@ -44,7 +42,7 @@
                     <!-- En-tête conversation -->
                     <div class="d-flex flex-column p-3 mb-5">
                         <?php
-                        $contactAvatar = $contact->getAvatar() ? '/uploads/avatars/' . htmlspecialchars($contact->getAvatar()) : '/assets/img/default_avatar.jpg';
+                        $contactAvatar = $contact->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($contact->getAvatar()) : 'assets/img/default-avatar.jpg';
                         ?>
                         <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
                             <a href="index.php?action=messages" class="d-md-none text-decoration-none text-secondary">
@@ -59,21 +57,21 @@
                     </div>
 
                     <!-- Corps de la conversation -->
-                    <div class="overflow-auto hide-scrollbar msg-conversation-body">
+                    <div class="overflow-auto hide-scrollbar mb-5 msg-conversation-body">
                         <?php foreach ($messages as $msg) :
                             $isMe = ($msg->getSenderId() === $userId);
                         ?>
-                            <div class="mb-4 d-flex <?= $isMe ? 'justify-content-end' : 'justify-content-start' ?>">
+                            <div class="d-flex <?= $isMe ? 'justify-content-end' : 'justify-content-start' ?>">
                                 <div class="d-flex flex-column msg-bubble-wrapper">
                                     <!-- Ligne contenant avatar (si pas moi) + date/heure -->
                                     <div class="d-flex align-items-center gap-2 mb-1 <?= $isMe ? 'justify-content-end' : '' ?>">
                                         <?php if (!$isMe) : ?>
                                             <img src="<?= $contactAvatar ?>" class="rounded-circle msg-avatar-bubble">
                                         <?php endif; ?>
-                                        <span class="small text-muted"><?= $msg->getCreatedAt()->format('d/m/Y H:i') ?></span>
+                                        <span class="small text-muted"><?= $msg->getCreatedAt()->format('d/m H:i') ?></span>
                                     </div>
                                     <!-- Bulle de message -->
-                                    <div class="p-3 text-start d-inline-block text-break <?= $isMe ? 'bg-tertiary' : 'bg-white' ?>">
+                                    <div class="p-2 text-start d-inline-block text-break <?= $isMe ? 'bg-tertiary' : 'bg-white' ?>">
                                         <?= nl2br(htmlspecialchars($msg->getContent())) ?>
                                     </div>
                                 </div>
@@ -82,10 +80,10 @@
                     </div>
 
                     <!-- Formulaire d'envoi -->
-                    <div class="p-3 mt-auto">
+                    <div class="mb-4">
                         <form action="index.php?action=messages&id=<?= $contact->getId() ?>" method="POST" class="d-flex flex-column flex-md-row gap-2">
-                            <input type="text" name="content" class="form-control bg-white" placeholder="Tapez votre message ici" required>
-                            <button type="submit" class="btn btn-primary px-4">Envoyer</button>
+                            <input type="text" name="content" class="form-control form-control-sm bg-white" placeholder="Tapez votre message ici" required>
+                            <button type="submit" class="btn btn-primary btn-sm">Envoyer</button>
                         </form>
                     </div>
                 </div>
