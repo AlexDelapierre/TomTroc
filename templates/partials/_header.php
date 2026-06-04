@@ -1,7 +1,7 @@
 <header class="sticky-top">
     <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container">
-            <a class="navbar-brand me-lg-5" href="/">
+        <div class="container-navbar-width d-flex justify-content-between align-items-center">
+            <a class="navbar-brand me-lg-5" href="index.php?action=home">
                 <img src="/assets/icons/logo.svg" alt="TomTroc" class="navbar-logo d-inline-block align-text-top">
             </a>
 
@@ -12,17 +12,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-lg-0 gap-lg-5">
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= $currentAction === 'home' ? 'active fw-bold' : '' ?>" href="index.php?action=home">Accueil</a>
+                        <a class="nav-link <?= $currentAction === 'home' ? 'active fw-bold' : '' ?>" href="index.php?action=home">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= $currentAction === 'books' ? 'active fw-bold' : '' ?>" href="index.php?action=books">Nos livres à l'échange</a>
+                        <a class="nav-link <?= $currentAction === 'books' ? 'active fw-bold' : '' ?>" href="index.php?action=books">Nos livres à l'échange</a>
                     </li>
                 </ul>
 
                 <ul class="navbar-nav mb-lg-0 gap-lg-5">
                     <?php if (isset($_SESSION['user'])): ?>
                         <li class="nav-item">
-                            <a class="nav-link text-dark d-flex align-items-center gap-1 <?= $currentAction === 'messages' ? 'active fw-bold' : '' ?>" href="index.php?action=messages">
+                            <a class="nav-link d-flex align-items-center gap-1 <?= $currentAction === 'messages' ? 'active fw-bold' : '' ?>" href="index.php?action=messages">
                                 <svg class="d-none d-lg-block" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.5 0.355469C11.4954 0.355469 14.6445 3.15221 14.6445 6.5C14.6445 8.19467 13.8458 9.73887 12.5342 10.8594L12.3184 11.0439L12.4443 11.2812V12.7334L11.1797 12.0029L11.0117 11.8555L10.8037 11.9492C9.8171 12.3929 8.6938 12.6445 7.5 12.6445C3.50458 12.6445 0.355469 9.84779 0.355469 6.5C0.355469 3.15221 3.50458 0.355469 7.5 0.355469Z" stroke="#292929" stroke-width="0.71" />
                                 </svg>
@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark d-flex align-items-center gap-1 <?= $currentAction === 'profile' ? 'active fw-bold' : '' ?>" href="index.php?action=profile">
+                            <a class="nav-link d-flex align-items-center gap-1 <?= $currentAction === 'profile' ? 'active fw-bold' : '' ?>" href="index.php?action=profile">
                                 <svg class="d-none d-lg-block" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="path-1-inside-1_31855_30" fill="white">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M4.64286 9.28571C7.20704 9.28571 9.28571 7.20704 9.28571 4.64286C9.28571 2.07868 7.20704 0 4.64286 0C2.07868 0 0 2.07868 0 4.64286C0 7.20704 2.07868 9.28571 4.64286 9.28571ZM4.64286 9.28571C2.07868 9.28571 0 10.1172 0 11.1429C0 12.1685 2.07868 13 4.64286 13C7.20704 13 9.28571 12.1685 9.28571 11.1429C9.28571 10.1172 7.20704 9.28571 4.64286 9.28571Z" />
@@ -46,11 +46,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="index.php?action=logout">Déconnexion</a>
+                            <a class="nav-link" href="index.php?action=logout">Déconnexion</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link text-dark d-flex align-items-center gap-1 <?= $currentAction === 'messages' ? 'active fw-bold' : '' ?>" href="index.php?action=login&redirect=messages">
+                            <a class="nav-link d-flex align-items-center gap-1 <?= $currentAction === 'messages' ? 'active fw-bold' : '' ?>" href="index.php?action=login&redirect=messages">
                                 <svg class="d-none d-lg-block" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.5 0.355469C11.4954 0.355469 14.6445 3.15221 14.6445 6.5C14.6445 8.19467 13.8458 9.73887 12.5342 10.8594L12.3184 11.0439L12.4443 11.2812V12.7334L11.1797 12.0029L11.0117 11.8555L10.8037 11.9492C9.8171 12.3929 8.6938 12.6445 7.5 12.6445C3.50458 12.6445 0.355469 9.84779 0.355469 6.5C0.355469 3.15221 3.50458 0.355469 7.5 0.355469Z" stroke="#292929" stroke-width="0.71" />
                                 </svg>
@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark d-flex align-items-center gap-1 <?= $currentAction === 'profile' ? 'active fw-bold' : '' ?>" href="index.php?action=login&redirect=profile">
+                            <a class="nav-link d-flex align-items-center gap-1 <?= $currentAction === 'profile' ? 'active fw-bold' : '' ?>" href="index.php?action=login&redirect=profile">
                                 <svg class="d-none d-lg-block" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="path-1-inside-1_31855_30" fill="white">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M4.64286 9.28571C7.20704 9.28571 9.28571 7.20704 9.28571 4.64286C9.28571 2.07868 7.20704 0 4.64286 0C2.07868 0 0 2.07868 0 4.64286C0 7.20704 2.07868 9.28571 4.64286 9.28571ZM4.64286 9.28571C2.07868 9.28571 0 10.1172 0 11.1429C0 12.1685 2.07868 13 4.64286 13C7.20704 13 9.28571 12.1685 9.28571 11.1429C9.28571 10.1172 7.20704 9.28571 4.64286 9.28571Z" />
