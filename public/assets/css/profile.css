@@ -1,7 +1,7 @@
 /* Modificateurs de profil */
 .profile-avatar {
-  width: 150px;
-  height: 150px;
+  width: 135px;
+  height: 135px;
   object-fit: cover;
 }
 
@@ -16,8 +16,10 @@
   border-radius: 2px;
 }
 
-.description-cell {
-  max-width: 250px;
+.description-text {
+  max-width: 150px; /* Réduit la largeur du bloc de texte à 150px (ou autre valeur) */
+  word-wrap: break-word; /* Force le retour à la ligne si des mots sont trop longs */
+  overflow-wrap: break-word;
 }
 
 /* Style des liens d'action */

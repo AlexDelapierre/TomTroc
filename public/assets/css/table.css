@@ -23,7 +23,30 @@ thead th {
   --bs-table-bg: transparent !important;
 }
 
+/* Augmente légèrement le padding-y des lignes de la table */
+.table tbody td {
+  padding-top: 1.2rem !important;
+  padding-bottom: 1.2rem !important;
+}
+
 /* On s'assure que le header reste propre sur le fond gris */
 thead {
   background-color: transparent;
+}
+
+.custom-scroll {
+  /* On limite la hauteur. Ajuste cette valeur (ex: entre 300px et 350px)
+           selon la taille réelle de tes images de couverture pour bloquer pile à 4 lignes */
+  max-height: 55vh;
+  overflow-y: auto;
+
+  /* Cache la barre de défilement sur Firefox */
+  scrollbar-width: none;
+  /* Cache la barre de défilement sur Internet Explorer / Edge */
+  -ms-overflow-style: none;
+}
+
+/* Cache la barre de défilement sur Chrome, Safari et Opera */
+.custom-scroll::-webkit-scrollbar {
+  display: none;
 }

@@ -2,6 +2,7 @@
 @import url("footer.css");
 @import url("profile.css");
 @import url("table.css");
+@import url("message.css");
 
 /* ==========================================================================
    1. VARIABLES & CONFIGURATION
@@ -35,27 +36,45 @@
 /* ==========================================================================
    2. SURCHARGES GLOBALES
    ========================================================================== */
-
-.bg-primary {
-  background-color: var(--color-light-gray) !important;
+html,
+body {
+  height: 100%;
+  min-height: 106vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.bg-secondary {
-  background-color: var(--color-warm-white) !important;
-}
-
-.bg-tertiary {
-  background-color: var(--color-blue) !important;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--color-light-gray);
+  /* background-color: var(--color-light-gray); */
+  background-color: black;
   display: flex;
   flex-direction: column;
   font-family: "Inter", sans-serif;
   font-weight: 300;
   font-size: 0.875rem; /* 14px */
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+.layout-wrapper {
+  background-color: var(--color-light-gray);
+}
+
+@media (min-width: 992px) {
+  .layout-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 main {
@@ -70,6 +89,7 @@ h5,
 h6 {
   font-family: "Playfair Display", serif;
   font-weight: 400;
+  color: var(--color-dark-gray);
 }
 
 h1 {
@@ -81,15 +101,36 @@ h2 {
 }
 
 @media (min-width: 768px) {
-  body {
-    font-size: 1rem; /* 16px */
-  }
   h1 {
-    font-size: 2.25rem; /* 36px */
+    font-size: 36px;
   }
   h2 {
-    font-size: 2rem; /* 32px */
+    font-size: 32px;
   }
+}
+
+p {
+  color: var(--color-dark-gray);
+}
+
+.bg-primary {
+  background-color: var(--color-light-gray) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color-warm-white) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--color-blue) !important;
+}
+
+.text-medium-gray {
+  color: var(--color-medium-gray);
+}
+
+.text-dark-gray {
+  color: var(--color-dark-gray);
 }
 
 img,
@@ -100,18 +141,123 @@ svg {
   max-width: 100%;
 }
 
+.nav-link {
+  font-size: 0.875rem;
+  color: var(--color-dark-gray);
+}
+
+/* Taille 14px */
+.text-xs {
+  font-size: 0.875rem !important;
+  color: var(--color-medium-gray);
+}
+
+/* Taille 12px */
+.text-xss {
+  font-size: 0.75rem !important;
+  color: var(--color-medium-gray);
+}
+
+/* Taille 10px */
+.text-xxs {
+  font-size: 0.625rem !important;
+}
+
+/* Taille 8px */
+.text-xxxs {
+  font-size: 0.5rem !important;
+}
+
+.step-text {
+  font-size: 0.875rem;
+}
+
+/* Force le fond blanc lors de la saisie automatique */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
+}
+
+/* Force le fond blanc sur tous les champs de type texte et select */
+.form-control,
+.form-select {
+  background-color: #ffffff !important;
+}
+
+/* Optionnel : Assure que le fond reste blanc même quand l'utilisateur clique dedans */
+.form-control:focus,
+.form-select:focus {
+  background-color: #ffffff !important;
+}
+
 /* ==========================================================================
    3. MISE EN PAGE & COMPOSANTS
    ========================================================================== */
 
+@media (min-width: 1400px) {
+  .container,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 1440px;
+  }
+}
+
+.container-navbar-width {
+  width: 100%;
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-md {
+  width: 100%;
+  max-width: 950px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form-container {
+  padding-left: 10rem;
+  padding-right: 15rem;
+}
+
+.form-profile-container {
+  padding-left: 8rem !important;
+  padding-right: 8rem !important;
+}
+
 @media (min-width: 992px) {
   .container-sm {
-    max-width: 70vw;
+    max-width: 856px !important;
   }
+
+  .hero-text-panel {
+    padding-right: 5rem;
+  }
+}
+
+.p-custom-large {
+  padding: 5rem;
+}
+
+.pe-6 {
+  /* padding greater than Bootstrap pe-5 (3rem). Here: 4.5rem */
+  padding-inline-end: 4.5rem;
+  padding-right: 4.5rem;
 }
 
 .navbar-logo {
   height: 1.5rem;
+  width: auto;
+}
+
+/* Larger variant for specific icons */
+.navbar-logo-lg {
+  height: 6.2rem;
   width: auto;
 }
 
@@ -129,11 +275,16 @@ svg {
   --bs-btn-hover-border-color: var(--color-primary);
   --bs-btn-active-bg: var(--color-primary);
   --bs-btn-focus-shadow-rgb: var(--color-primary-rgb);
+  --bs-btn-padding-y: 1.3rem;
+  --bs-btn-padding-x: 2.5rem;
+  --bs-btn-font-size: 1rem;
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: 0.75rem;
 }
 
 .btn-secondary {
   --bs-btn-color: var(--color-primary);
-  --bs-btn-bg: transparent;
+  --bs-btn-bg: var(--color-light-gray);
   --bs-btn-border-color: var(--color-primary);
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: var(--color-primary);
@@ -141,6 +292,11 @@ svg {
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: var(--color-primary);
   --bs-btn-focus-shadow-rgb: var(--color-primary-rgb);
+  --bs-btn-padding-y: 1.3rem;
+  --bs-btn-padding-x: 2.5rem;
+  --bs-btn-font-size: 1rem;
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: 0.75rem;
 }
 
 /* Classe pour masquer les barres de défilement tout en gardant le scroll actif */
@@ -158,22 +314,24 @@ svg {
 }
 
 /* ==========================================================================
-   4. SECTIONS
+   4. ELEMENTS VISUELS & UTILITAIRES
    ========================================================================== */
 
-.divider-img {
+.home-divider-img {
   background-image: url("../img/books_pictures.jpg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   width: 100%;
-  min-height: 40vh;
+  height: 230px;
 }
 
-@media (min-width: 992px) {
-  .divider-img {
-    min-height: 20vh;
-  }
+.hero-button {
+  margin-top: 2.8rem;
+}
+
+.home-list {
+  --bs-gutter-x: 2.5rem; /* Espace horizontal entre les cartes */
+  --bs-gutter-y: 2rem; /* Espace vertical entre les cartes */
 }
 
 .auth-cover {
@@ -189,14 +347,21 @@ svg {
 }
 
 .book-cover-img {
-  height: 20vh;
+  height: 200px;
   object-fit: cover;
 }
 
-@media (min-width: 768px) {
-  .book-cover-img {
-    height: 30vh;
-  }
+.book-card {
+  width: 200px;
+  height: 324px;
+  margin-left: auto;
+  margin-right: auto; /* Optionnel : centrer les cards dans les colonnes Bootstrap plus larges */
+}
+
+.step-card {
+  width: 215px;
+  height: 139px;
+  border-radius: 10px;
 }
 
 @media (max-width: 991.98px) {
@@ -224,4 +389,15 @@ svg {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+}
+
+.hr-thin {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  opacity: 0.3;
+}
+
+.hr-short {
+  width: 6% !important;
 }
