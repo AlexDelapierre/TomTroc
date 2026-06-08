@@ -7,6 +7,9 @@ use App\Model\Entity\Message;
 use App\Model\Entity\User;
 use PDO;
 
+/****
+ * Repository pour gérer les opérations de base de données liées aux messages
+ */
 class MessageRepository
 {
     private PDO $db;
@@ -20,7 +23,9 @@ class MessageRepository
     }
 
     /**
-     * Ajoute un nouveau message
+     * Ajoute un nouveau message à la base de données
+     * @param Message $message L'objet Message à ajouter
+     * @return bool True si l'ajout a réussi, false sinon
      */
     public function add(Message $message): bool
     {
@@ -38,6 +43,8 @@ class MessageRepository
 
     /**
      * Récupère un message par son ID
+     * @param int $id L'ID du message à rechercher
+     * @return Message|null L'objet Message si trouvé, null sinon
      */
     public function findById(int $id): ?Message
     {
@@ -50,6 +57,8 @@ class MessageRepository
 
     /**
      * Récupère la liste des dernières conversations d'un utilisateur
+     * @param int $userId L'ID de l'utilisateur
+     * @return array Tableau de conversations
      */
     public function getLastMessagesByUser(int $userId): array
     {
@@ -109,6 +118,9 @@ class MessageRepository
 
     /**
      * Récupère tous les messages entre deux utilisateurs
+     * @param int $userId1 L'ID du premier utilisateur
+     * @param int $userId2 L'ID du deuxième utilisateur
+     * @return array Tableau d'objets Message
      */
     public function getConversation(int $userId1, int $userId2): array
     {
@@ -129,6 +141,8 @@ class MessageRepository
 
     /**
      * Compte le nombre de messages non lus pour un utilisateur
+     * @param int $userId L'ID de l'utilisateur
+     * @return int Nombre de messages non lus
      */
     public function getUnreadCount(int $userId): int
     {
@@ -139,6 +153,9 @@ class MessageRepository
 
     /**
      * Marque les messages d'une conversation comme lus
+     * @param int $receiverId L'ID du destinataire
+     * @param int $senderId L'ID de l'expéditeur
+     * @return bool True si la mise à jour a réussi, false sinon
      */
     public function markConversationAsRead(int $receiverId, int $senderId): bool
     {

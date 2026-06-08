@@ -5,6 +5,9 @@ namespace App\Model\Entity;
 use App\Core\AbstractEntity;
 use DateTimeImmutable;
 
+/**
+ * Entité représentant un message échangé entre deux utilisateurs
+ */
 class Message extends AbstractEntity
 {
     private int $senderId;

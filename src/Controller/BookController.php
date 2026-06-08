@@ -7,8 +7,14 @@ use App\Model\Entity\Book;
 use App\Model\Repository\BookRepository;
 use App\Service\UploadService;
 
+/**
+ * Contrôleur pour la gestion des livres
+ */
 class BookController extends AbstractController
 {
+    /**
+     * Affiche la liste des livres disponibles avec une option de recherche
+     */
     public function list()
     {
         $search = $_GET['search'] ?? '';
@@ -23,6 +29,9 @@ class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche les détails d'un livre spécifique
+     */
     public function show()
     {
         $id = $_GET['id'] ?? null;
@@ -44,6 +53,9 @@ class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à un utilisateur connecté d'ajouter un nouveau livre
+     */
     public function add()
     {
         // Vérification de la connexion
@@ -85,6 +97,9 @@ class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à un utilisateur connecté de modifier un livre existant
+     */
     public function edit()
     {
         // Vérification de la connexion
@@ -120,7 +135,7 @@ class BookController extends AbstractController
 
                     if (empty($errors)) {
                         $repo->update($book);
-                        $this->redirect('index.php?action=books');
+                        $this->redirect('index.php?action=editBook&id=' . $book->getId());
                         return;
                     }
                 }
@@ -137,6 +152,9 @@ class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à un utilisateur connecté de supprimer un livre existant
+     */
     public function delete()
     {
         $this->isConnected();
@@ -158,6 +176,9 @@ class BookController extends AbstractController
         $this->redirect('index.php?action=books');
     }
 
+    /**
+     * Gère le téléchargement de l'image du livre
+     */
     private function handleImageUpload(Book $book, array &$errors): void
     {
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {

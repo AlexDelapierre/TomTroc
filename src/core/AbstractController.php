@@ -2,13 +2,16 @@
 
 namespace App\Core;
 
+/**
+ * Contrôleur de base fournissant des méthodes communes à tous les contrôleurs
+ */
 abstract class AbstractController
 {
 
     /**
      * Affiche une vue intégrée dans le layout principal
-     * @param string $view Nom du fichier vue (ex: 'book/list')
-     * @param array $data Données à transmettre à la vue
+     * @param string $template Nom du fichier template (ex: 'book/list')
+     * @param array $data Données à transmettre au template
      */
     protected function render(string $template, array $data = []): void
     {

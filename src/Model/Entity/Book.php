@@ -5,6 +5,9 @@ namespace App\Model\Entity;
 use App\Core\AbstractEntity;
 use App\Model\Repository\UserRepository;
 
+/**
+ * Entité représentant un livre dans l'application
+ */
 class Book extends AbstractEntity
 {
     private int $userId;

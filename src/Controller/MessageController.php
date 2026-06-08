@@ -7,8 +7,14 @@ use App\Model\Repository\MessageRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\Entity\Message;
 
+/**
+ * Contrôleur pour la gestion des messages
+ */
 class MessageController extends AbstractController
 {
+    /**
+     * Affiche la liste des conversations de l'utilisateur connecté et les messages d'une conversation sélectionnée
+     */
     public function showMessages()
     {
         $this->isConnected();

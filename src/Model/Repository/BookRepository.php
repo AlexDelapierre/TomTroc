@@ -6,6 +6,9 @@ use App\Core\Database;
 use App\Model\Entity\Book;
 use PDO;
 
+/**
+ * Repository pour gérer les opérations de base de données liées aux livres
+ */
 class BookRepository
 {
     private PDO $db;
@@ -15,6 +18,11 @@ class BookRepository
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Ajoute un nouveau livre à la base de données
+     * @param Book $book L'objet Book à ajouter
+     * @return bool True si l'ajout a réussi, false sinon
+     */
     public function add(Book $book): bool
     {
         $query = $this->db->prepare("
@@ -32,6 +40,11 @@ class BookRepository
         ]);
     }
 
+    /**
+     * Met à jour les informations d'un livre existant
+     * @param Book $book L'objet Book à mettre à jour
+     * @return bool True si la mise à jour a réussi, false sinon
+     */
     public function update(Book $book): bool
     {
         $query = $this->db->prepare("
@@ -54,12 +67,22 @@ class BookRepository
         ]);
     }
 
+    /**
+     * Supprime un livre de la base de données
+     * @param int $id L'ID du livre à supprimer
+     * @return bool True si la suppression a réussi, false sinon
+     */
     public function delete(int $id): bool
     {
         $query = $this->db->prepare("DELETE FROM book WHERE id = :id");
         return $query->execute(['id' => $id]);
     }
 
+    /**
+     * Recherche les livres associés à un utilisateur
+     * @param int $userId L'ID de l'utilisateur
+     * @return Book[] Tableau d'objets Book
+     */
     public function findByUser(int $userId): array
     {
         $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id");
@@ -72,6 +95,11 @@ class BookRepository
         return $books;
     }
 
+    /**
+     * Recherche les livres disponibles associés à un utilisateur
+     * @param int $userId L'ID de l'utilisateur
+     * @return Book[] Tableau d'objets Book
+     */
     public function findAvailableByUser(int $userId): array
     {
         $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id AND is_available = 1");
@@ -84,6 +112,11 @@ class BookRepository
         return $books;
     }
 
+    /**
+     * Recherche un livre par son ID
+     * @param int $id L'ID du livre à rechercher
+     * @return Book|null L'objet Book si trouvé, null sinon
+     */
     public function findById(int $id): ?Book
     {
         $query = $this->db->prepare("SELECT * FROM book WHERE id = :id");

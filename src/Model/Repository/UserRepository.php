@@ -6,6 +6,9 @@ use App\Core\Database;
 use App\Model\Entity\User;
 use PDO;
 
+/****
+ * Repository pour gérer les opérations de base de données liées aux utilisateurs
+ */
 class UserRepository
 {
     private PDO $db;
@@ -15,6 +18,11 @@ class UserRepository
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Recherche un utilisateur par son ID
+     * @param int $id L'ID de l'utilisateur à rechercher
+     * @return User|null L'objet User si trouvé, null sinon
+     */
     public function findById(int $id): ?User
     {
         $query = $this->db->prepare("SELECT * FROM user WHERE id = :id");
@@ -24,6 +32,11 @@ class UserRepository
         return $data ? new User($data) : null;
     }
 
+    /**
+     * Recherche un utilisateur par son email
+     * @param string $email L'email de l'utilisateur à rechercher
+     * @return User|null L'objet User si trouvé, null sinon
+     */
     public function findByEmail(string $email): ?User
     {
         $query = $this->db->prepare("SELECT * FROM user WHERE email = :email");
@@ -33,6 +46,11 @@ class UserRepository
         return $data ? new User($data) : null;
     }
 
+    /**
+     * Ajoute un nouvel utilisateur à la base de données
+     * @param User $user L'objet User à ajouter
+     * @return bool True si l'ajout a réussi, false sinon
+     */
     public function add(User $user): bool
     {
         $query = $this->db->prepare("
@@ -49,6 +67,11 @@ class UserRepository
         ]);
     }
 
+    /**
+     * Met à jour les informations d'un utilisateur dans la base de données
+     * @param User $user L'objet User à mettre à jour
+     * @return bool True si la mise à jour a réussi, false sinon
+     */
     public function update(User $user): bool
     {
         $query = $this->db->prepare("
@@ -69,6 +92,11 @@ class UserRepository
         ]);
     }
 
+    /**
+     * Supprime un utilisateur de la base de données
+     * @param int $id L'ID de l'utilisateur à supprimer
+     * @return bool True si la suppression a réussi, false sinon
+     */
     public function delete(int $id): bool
     {
         $query = $this->db->prepare("DELETE FROM user WHERE id = :id");

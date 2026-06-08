@@ -6,6 +6,9 @@ use DateTimeImmutable;
 
 use App\Core\AbstractEntity;
 
+/****
+ * Entité représentant un utilisateur de l'application
+ */
 class User extends AbstractEntity
 {
     private string $username;

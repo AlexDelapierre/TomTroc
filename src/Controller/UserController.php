@@ -8,8 +8,14 @@ use App\Model\Repository\BookRepository;
 use App\Model\Entity\User;
 use App\Service\UploadService;
 
+/**
+ * Contrôleur pour la gestion des utilisateurs
+ */
 class UserController extends AbstractController
 {
+    /**
+     * Permet à un nouvel utilisateur de s'inscrire
+     */
     public function register()
     {
         $errors = [];
@@ -62,6 +68,9 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à un utilisateur de se connecter
+     */
     public function login()
     {
         // Redirection si déjà connecté
@@ -99,6 +108,9 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à un utilisateur de se déconnecter
+     */
     public function logout()
     {
         $this->destroySession();
