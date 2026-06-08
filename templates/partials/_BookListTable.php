@@ -21,7 +21,7 @@ $isPublic = ($_GET['action'] ?? '') === 'publicProfile';
                 <tr>
                     <td class="ps-4">
                         <?php $profileBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
-                        <img src="<?= $profileBookImage ?>" alt="Couverture" class="img-fluid book-img-custom">
+                        <img src="<?= $profileBookImage ?>" alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()); ?>" class="img-fluid book-img-custom">
                     </td>
                     <td class="fw-normal"><?= htmlspecialchars($book->getTitle()) ?></td>
                     <td><?= htmlspecialchars($book->getAuthor()) ?></td>

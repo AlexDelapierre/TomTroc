@@ -10,7 +10,9 @@
                 </div>
             <?php endif; ?>
 
-            <form action="index.php?action=login<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST">
+            <form action="index.php?action=login<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>"
+                method="POST"
+                class="white-form-fields">
                 <div class="mb-5">
                     <label for="email" class="form-label text-xs">Adresse email</label>
                     <input type="email" name="email" id="email" class="form-control form-control-lg bg-white" placeholder="" required>

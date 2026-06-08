@@ -1,7 +1,7 @@
 <?php $isEditable = false; ?>
 
 <div class="bg-secondary h-100 py-5">
-    <section class="container-navbar-width">
+    <div class="container-navbar-width">
 
         <div class="row g-4 align-items-stretch py-5">
 
@@ -20,15 +20,13 @@
 
             </div>
         </div>
-    </section>
+    </div>
 
-    <section>
-        <div class="container d-block d-lg-none mb-5">
-            <div class="d-flex flex-column gap-4">
-                <?php foreach ($books as $book): ?>
-                    <?php include __DIR__ . '/../partials/_profile_book_card.php'; ?>
-                <?php endforeach; ?>
-            </div>
+    <div class="container d-block d-lg-none mb-5">
+        <div class="d-flex flex-column gap-4">
+            <?php foreach ($books as $book): ?>
+                <?php include __DIR__ . '/../partials/_profile_book_card.php'; ?>
+            <?php endforeach; ?>
         </div>
-    </section>
+    </div>
 </div>

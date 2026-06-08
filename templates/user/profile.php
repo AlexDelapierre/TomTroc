@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="h-100 d-flex flex-column justify-content-center bg-white form-profile-container">
-                        <h3 class="h6 mb-4">Vos informations personnelles</h3>
+                        <h2 class="h6 mb-4">Vos informations personnelles</h2>
 
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger" role="alert">
@@ -44,7 +44,7 @@
         </form>
     </section>
 
-    <section>
+    <div>
         <div class="d-block d-lg-none my-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="h4 mb-0">Ma bibliothèque</h2>
@@ -70,5 +70,5 @@
             include __DIR__ . '/../partials/_BookListTable.php';
             ?>
         </div>
-    </section>
+    </div>
 </div>

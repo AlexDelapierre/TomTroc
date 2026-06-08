@@ -12,7 +12,7 @@
     </div>
     <hr class="w-50 mx-auto hr-thin my-5">
     <div class="mb-5">
-        <h2 class="h4"><?= htmlspecialchars($user->getUsername()) ?></h2>
+        <div class="h4"><?= htmlspecialchars($user->getUsername()) ?></div>
         <?php $age = $user->getAccountAge(); ?>
         <p class="text-xs">
             Membre depuis <?= ($age->y > 0) ? $age->y . " an(s)" : $age->days . " jours" ?>

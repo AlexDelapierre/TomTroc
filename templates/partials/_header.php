@@ -1,6 +1,6 @@
 <header class="sticky-top">
     <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-navbar-width d-flex justify-content-between align-items-center">
+        <div class="container-navbar-width d-flex flex-wrap justify-content-between align-items-center">
             <a class="navbar-brand me-lg-5" href="index.php?action=home">
                 <img src="/assets/icons/logo.svg" alt="TomTroc" class="navbar-logo d-inline-block align-text-top">
             </a>

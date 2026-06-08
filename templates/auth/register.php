@@ -14,7 +14,9 @@
                 </div>
             <?php endif; ?>
 
-            <form action="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST">
+            <form action="index.php?action=register<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>"
+                method="POST"
+                class="white-form-fields">
                 <div class="mb-5">
                     <label for="username" class="form-label text-xs">Pseudo</label>
                     <input type="text" name="username" id="username" class="form-control form-control-lg bg-white" placeholder="" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" required>

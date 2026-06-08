@@ -66,7 +66,7 @@
                                     <!-- Ligne contenant avatar (si pas moi) + date/heure -->
                                     <div class="d-flex align-items-center gap-2 mb-1 <?= $isMe ? 'justify-content-end' : '' ?>">
                                         <?php if (!$isMe) : ?>
-                                            <img src="<?= $contactAvatar ?>" class="rounded-circle msg-avatar-bubble">
+                                            <img src="<?= $contactAvatar ?>" alt="Avatar de <?= htmlspecialchars($contact->getUsername()) ?>" class="rounded-circle msg-avatar-bubble">
                                         <?php endif; ?>
                                         <span class="small text-muted"><?= $msg->getCreatedAt()->format('d/m H:i') ?></span>
                                     </div>

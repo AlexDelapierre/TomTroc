@@ -3,8 +3,9 @@
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-12 col-lg-6">
                 <img src="assets/img/hero-image.jpg"
-                    class="d-block mx-lg-auto img-fluid img-mobile-full mb-1"
+                    class="d-block mx-lg-auto img-fluid mb-1"
                     style="max-height: 75vh; object-fit: cover;"
+                    fetchpriority="high"
                     alt="Hamza" width="700" height="500" loading="lazy">
                 <div class="text-end small text-secondary">Hamza</div>
             </div>
@@ -22,7 +23,6 @@
 <section class="bg-secondary">
     <div class="container-md py-5">
         <h2 class="text-center mt-4 mb-5">Les derniers livres ajoutés</h2>
-
         <ul class="row row-cols-2 row-cols-lg-4 list-unstyled home-list mt-5">
             <?php foreach ($books as $book): ?>
                 <li class="col mb-4">
@@ -30,7 +30,6 @@
                 </li>
             <?php endforeach; ?>
         </ul>
-
         <div class="text-center my-4">
             <a href="index.php?action=books" class="btn btn-primary btn-lg">Voir tous les livres</a>
         </div>
@@ -56,11 +55,11 @@
             foreach ($steps as $step):
             ?>
                 <li class="col mb-4 d-flex justify-content-center">
-                    <article class="card bg-white p-5 p-md-3 border-0 align-items-center justify-content-center text-center step-card">
+                    <div class="card bg-white p-5 p-md-3 border-0 align-items-center justify-content-center text-center step-card">
                         <p class="mb-0 text-break fw-bold step-text">
                             <?= $step ?>
                         </p>
-                    </article>
+                    </div>
                 </li>
             <?php
             endforeach;

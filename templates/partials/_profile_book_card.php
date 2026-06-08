@@ -1,4 +1,4 @@
-<article class="card h-100 bg-white border-0">
+<div class="card h-100 bg-white border-0">
     <div class="container-sm py-5">
         <div class="row">
             <div class="col-4">
@@ -9,7 +9,7 @@
                     loading="lazy">
             </div>
             <div class="col-8">
-                <h3 class="h5 card-title mb-3"><?= htmlspecialchars($book->getTitle()); ?></h3>
+                <div class="h5 card-title mb-3"><?= htmlspecialchars($book->getTitle()); ?></div>
                 <p class="card-text text-muted small">Par <?= htmlspecialchars($book->getAuthor()); ?></p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                     <?php if ($book->getIsAvailable()): ?>
@@ -34,4 +34,4 @@
         </div>
     </div>
 
-</article>
+</div>
