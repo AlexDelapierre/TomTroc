@@ -1,0 +1,31 @@
+# robots.txt pour TomTroc
+# Ce fichier indique aux moteurs de recherche les pages qu'ils peuvent ou ne doivent pas explorer.
+
+User-agent: *
+
+# --- Autorisations générales ---
+Allow: /
+Allow: /public/assets/
+
+# --- Interdictions de sécurité / Dossiers système ---
+# Si le serveur est mal configuré et expose la racine du projet :
+Disallow: /db/
+Disallow: /src/
+Disallow: /templates/
+Disallow: /config.php
+
+# --- Interdictions de crawl pour les pages privées ou de traitement ---
+# Empêcher l'indexation des pages d'authentification et de déconnexion
+Disallow: /*action=login
+Disallow: /*action=register
+Disallow: /*action=logout
+
+# Empêcher l'indexation des espaces personnels (profils, messages)
+Disallow: /*action=profile
+Disallow: /*action=updateProfile
+Disallow: /*action=messages
+
+# Empêcher l'indexation des actions de création, édition et suppression de livres
+Disallow: /*action=addBook
+Disallow: /*action=editBook
+Disallow: /*action=deleteBook
