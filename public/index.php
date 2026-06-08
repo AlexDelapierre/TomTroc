@@ -52,12 +52,12 @@ try {
             $bookController->show();
             break;
 
-        case 'addBook':
+        case 'addBook': // Ajouter un livre
             $bookController = new BookController();
             $bookController->add();
             break;
 
-        case 'editBook':
+        case 'editBook': // Modifier un livre
             $bookController = new BookController();
             $bookController->edit();
             break;
@@ -68,33 +68,26 @@ try {
             break;
 
         // --- Section Messages ---
-        case 'messages':
+        case 'messages': // Liste des conversations + messages d'une conversation sélectionnée
             $messageController = new MessageController();
             $messageController->showMessages();
             break;
 
         // Section connexion.
-        case 'register':
+        case 'register': // Inscription
             $userController = new UserController();
             $userController->register();
             break;
 
-        case 'login':
+        case 'login': // Connexion
             $userController = new UserController();
             $userController->login();
             break;
 
-        case 'logout':
+        case 'logout': // Déconnexion
             $userController = new UserController();
             $userController->logout();
             break;
-
-        // Section admin.
-        // case 'admin':
-        //     $adminController = new AdminController();
-        //     $adminController->showAdmin();
-        //     break;
-
 
         default:
             throw new Exception("La page demandée n'existe pas.");
