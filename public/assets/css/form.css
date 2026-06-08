@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Form style overriding
+   ========================================================================== */
+
+/* Forces black and bold text inside all form controls and selects globally */
+.form-control,
+.form-select {
+  color: #000000 !important;
+  font-weight: 500 !important; /* Equivalent to fw-bold */
+}
+
+/* Fixes text color and weight during browser autofill for all inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* ==========================================================================
+   White background for specific forms
+   ========================================================================== */
+
+/* Forces white background during browser autofill for specific forms */
+.white-form-fields input:-webkit-autofill,
+.white-form-fields input:-webkit-autofill:hover,
+.white-form-fields input:-webkit-autofill:focus,
+.white-form-fields input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
+}
+
+/* Forces white background on text inputs and selects for specific forms */
+.white-form-fields .form-control,
+.white-form-fields .form-select {
+  background-color: #ffffff !important;
+}
+
+/* Ensures background stays white on focus for specific forms */
+.white-form-fields .form-control:focus,
+.white-form-fields .form-select:focus {
+  background-color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Blue background for specific forms
+   ========================================================================== */
+
+/* Forces the light blue background during browser autofill for specific forms */
+.blue-form-fields input:-webkit-autofill,
+.blue-form-fields input:-webkit-autofill:hover,
+.blue-form-fields input:-webkit-autofill:focus,
+.blue-form-fields input:-webkit-autofill:active {
+  /* Using the hex value directly inside box-shadow ensures perfect cross-browser rendering */
+  -webkit-box-shadow: 0 0 0 30px #edf2f6 inset !important;
+  box-shadow: 0 0 0 30px #edf2f6 inset !important;
+}
+
+/* Forces the light blue background on text inputs and selects for specific forms */
+.blue-form-fields .form-control,
+.blue-form-fields .form-select {
+  background-color: var(--color-blue) !important;
+}
+
+/* Ensures background stays light blue on focus for specific forms */
+.blue-form-fields .form-control:focus,
+.blue-form-fields .form-select:focus {
+  background-color: var(--color-blue) !important;
+}
+
+/* ==========================================================================
+   Search form specific styles
+   ========================================================================== */
+
+/* Configuration de la boîte globale du formulaire */
+.search-form {
+  width: 100%; /* Largeur par défaut (s'adapte au parent) */
+  max-width: 350px; /* Largeur maximale précise (ajustez selon vos besoins) */
+  height: 46px; /* Hauteur précise du formulaire (ajustez selon vos besoins) */
+}
+
+/* Configuration du champ de saisie à l'intérieur */
+.search-form .search-input {
+  width: 100%;
+  height: 100%; /* Prend toute la hauteur définie dans .search-form */
+  padding-left: 40px; /* Laisse de la place à gauche pour l'icône de loupe */
+}
+
+/* ==========================================================================
+   Specific style for textarea with auto-resize
+   ========================================================================== */
+/* --- AUTOGROWING TEXTAREA OVERRIDES --------------------------------------- */
+.textarea-auto-resize {
+  max-height: 400px; /* Limit before the scrollbar appears */
+}

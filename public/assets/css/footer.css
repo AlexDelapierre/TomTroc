@@ -1,15 +1,3 @@
 footer {
   height: 6vh;
 }
-
-/* Footer layout tweaks */
-.footer-row {
-  justify-content: flex-end;
-  gap: 1.5rem;
-}
-
-/* Ensure the small headings keep right alignment */
-.footer-row .small,
-.footer-row h5 {
-  text-align: right;
-}
