@@ -52,7 +52,7 @@
                 "Proposez un échange et discutez avec d'autres passionnés de lecture."
             ];
             foreach ($steps as $step):
-            ?>
+                ?>
                 <li class="col mb-4 d-flex justify-content-center">
                     <div class="card bg-white p-5 p-md-3 border-0 align-items-center justify-content-center text-center step-card">
                         <p class="mb-0 text-break fw-bold step-text">

@@ -7,7 +7,6 @@ namespace App\Core;
  */
 abstract class AbstractController
 {
-
     /**
      * Affiche une vue intégrée dans le layout principal
      * @param string $template Nom du fichier template (ex: 'book/list')

@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use DateTimeImmutable;
-
 use App\Core\AbstractEntity;
 
 /****

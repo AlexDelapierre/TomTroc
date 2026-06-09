@@ -8,14 +8,14 @@
             <div class="col-12 col-lg-4">
                 <?php
                 include __DIR__ . '/../partials/_UserProfileCard.php';
-                ?>
+?>
             </div>
 
             <div class="col-12 col-lg-8 d-none d-lg-block">
                 <div class="h-100 rounded-4 overflow-hidden bg-white">
                     <?php
-                    include __DIR__ . '/../partials/_BookListTable.php';
-                    ?>
+    include __DIR__ . '/../partials/_BookListTable.php';
+?>
                 </div>
 
             </div>
