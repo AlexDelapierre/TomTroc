@@ -1,3 +1,7 @@
+# Dépendances et outils de dev
+/vendor/
+
+# Configuration sensible
 config.php
 
 # Dossier d'upload
@@ -7,3 +11,5 @@ public/uploads/*
 # Fichiers système
 .DS_Store
 Thumbs.db
+
+.php-cs-fixer.cache
