@@ -3,8 +3,7 @@
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-12 col-lg-6">
                 <img src="assets/img/hero-image.jpg"
-                    class="d-block mx-lg-auto img-fluid mb-1"
-                    style="max-height: 75vh; object-fit: cover;"
+                    class="d-block mx-lg-auto img-fluid mb-1 home-hero-img"
                     fetchpriority="high"
                     alt="Hamza" width="700" height="500" loading="lazy">
                 <div class="text-end small text-secondary">Hamza</div>

@@ -6,7 +6,7 @@
             alt="Avatar de <?= htmlspecialchars($user->getUsername()) ?>"
             loading="lazy">
         <?php if (!empty($isEditable) && $isEditable === true): ?>
-            <label for="avatar" class="text-medium-gray text-xs text-decoration-underline profile-avatar-label" style="cursor: pointer;">Modifier</label>
+            <label for="avatar" class="text-medium-gray text-xs text-decoration-underline cursor-pointer profile-avatar-label">Modifier</label>
             <input class="d-none" type="file" id="avatar" name="avatar" accept="image/*">
         <?php endif; ?>
     </div>
