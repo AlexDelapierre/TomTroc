@@ -13,7 +13,7 @@ class User extends AbstractEntity
     private string $username;
     private string $email;
     private string $password;
-    private ?string $avatar;
+    private ?string $avatar = null;
     private DateTimeImmutable $createdAt;
 
     public function __construct(array $data = [])
