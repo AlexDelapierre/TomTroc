@@ -8,7 +8,7 @@
                 <div class="col-12 col-lg-6">
                     <?php
                     include __DIR__ . '/../partials/_UserProfileCard.php';
-?>
+                    ?>
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="h-100 d-flex flex-column justify-content-center bg-white form-profile-container">
@@ -68,7 +68,7 @@
             </div>
             <?php
             include __DIR__ . '/../partials/_BookListTable.php';
-?>
+            ?>
         </div>
     </div>
 </div>

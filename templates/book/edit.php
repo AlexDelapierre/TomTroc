@@ -14,7 +14,7 @@
                     } else {
                         $ImagePath = 'assets/img/default-book.jpg';
                     }
-        ?>
+                    ?>
                     <div class="text-xs mb-1">Photo</div>
                     <img id="book-cover-preview" src="<?= htmlspecialchars($ImagePath) ?>"
                         class="d-block mx-lg-auto img-fluid edit-book-cover"

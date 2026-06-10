@@ -72,7 +72,7 @@ class Book extends AbstractEntity
     }
     public function getUser(): ?User
     {
-        $userRepository = new UserRepository();
+        $userRepository = new UserRepository;
         return $userRepository->findById($this->userId);
     }
 }

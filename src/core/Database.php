@@ -17,16 +17,12 @@ class Database
     /**
      * Constructeur privé pour empêcher l'instanciation directe depuis l'extérieur
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Empêche le clonage de l'instance
      */
-    private function __clone()
-    {
-    }
+    private function __clone() {}
 
     /**
      * Récupère l'instance unique de la connexion PDO

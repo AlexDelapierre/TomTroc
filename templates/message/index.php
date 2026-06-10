@@ -13,7 +13,7 @@
                         $lastMsg = $conv['message'];
                         $avatar = $listContact->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($listContact->getAvatar()) : 'assets/img/default-avatar.jpg';
                         $isActive = (isset($contact) && $contact && $listContact->getId() === $contact->getId()) ? 'bg-white' : '';
-                        ?>
+                    ?>
                         <a href="index.php?action=messages&id=<?= $listContact->getId() ?>"
                             class="d-flex flex-row align-items-center flex-nowrap text-decoration-none p-3 <?= $isActive ?>">
                             <!-- Colonne 1 : Avatar -->
@@ -42,8 +42,8 @@
                     <!-- En-tête conversation -->
                     <div class="d-flex flex-column p-3 mb-5">
                         <?php
-                            $contactAvatar = $contact->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($contact->getAvatar()) : 'assets/img/default-avatar.jpg';
-                ?>
+                        $contactAvatar = $contact->getAvatar() ? 'uploads/avatars/' . htmlspecialchars($contact->getAvatar()) : 'assets/img/default-avatar.jpg';
+                        ?>
                         <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
                             <a href="index.php?action=messages" class="d-md-none text-decoration-none text-secondary">
                                 <i class="bi bi-arrow-left"></i> retour
@@ -60,7 +60,7 @@
                     <div class="overflow-auto hide-scrollbar mb-5 msg-conversation-body">
                         <?php foreach ($messages as $msg) :
                             $isMe = ($msg->getSenderId() === $userId);
-                            ?>
+                        ?>
                             <div class="d-flex <?= $isMe ? 'justify-content-end' : 'justify-content-start' ?>">
                                 <div class="d-flex flex-column msg-bubble-wrapper">
                                     <!-- Ligne contenant avatar (si pas moi) + date/heure -->
