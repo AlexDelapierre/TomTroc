@@ -37,7 +37,7 @@ class BookController extends AbstractController
         $id = $_GET['id'] ?? null;
 
         if (!$id) {
-            throw new \InvalidArgumentException("L'ID du livre est requis.");
+            throw new \InvalidArgumentException("L'identifiant du livre est introuvable.");
         }
 
         $repo = new BookRepository();
@@ -70,8 +70,14 @@ class BookController extends AbstractController
                 $book->hydrate($_POST);
                 $book->setUserId($this->getSessionUserId());
 
+                // Vérification des champs obligatoires
                 if (empty($book->getTitle()) || empty($book->getAuthor())) {
                     $errors[] = "Le titre et l'auteur sont obligatoires.";
+                }
+
+                // Validation de la taille maximale du commentaire (500 caractères)
+                if (mb_strlen($book->getDescription() ?? '') > 500) {
+                    $errors[] = "Le commentaire ne peut pas dépasser 500 caractères.";
                 }
 
                 if (empty($errors)) {
@@ -126,8 +132,14 @@ class BookController extends AbstractController
                 // On s'assure que le livre reste lié à son propriétaire
                 $book->setUserId($this->getSessionUserId());
 
+                // Vérification des champs obligatoires
                 if (empty($book->getTitle()) || empty($book->getAuthor())) {
                     $errors[] = "Le titre et l'auteur sont obligatoires.";
+                }
+
+                // Validation de la taille maximale du commentaire (500 caractères)
+                if (mb_strlen($book->getDescription() ?? '') > 500) {
+                    $errors[] = "Le commentaire ne peut pas dépasser 500 caractères.";
                 }
 
                 if (empty($errors)) {
@@ -135,7 +147,8 @@ class BookController extends AbstractController
 
                     if (empty($errors)) {
                         $repo->update($book);
-                        $this->redirect('index.php?action=editBook&id=' . $book->getId());
+                        // $this->redirect('index.php?action=editBook&id=' . $book->getId());
+                        $this->redirect('index.php?action=profile');
                         return;
                     }
                 }
@@ -173,7 +186,7 @@ class BookController extends AbstractController
             throw new \Exception("Action non autorisée.");
         }
 
-        $this->redirect('index.php?action=books');
+        $this->redirect('index.php?action=profile');
     }
 
     /**
