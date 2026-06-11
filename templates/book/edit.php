@@ -17,13 +17,13 @@
                     ?>
                     <div class="text-xs mb-1">Photo</div>
                     <img id="book-cover-preview" src="<?= htmlspecialchars($ImagePath) ?>"
-                        class="d-block mx-lg-auto img-fluid edit-book-cover"
+                        class="d-block mx-lg-auto img-fluid edit-book-cover image-preview"
                         alt="Image d'illustration"
                         loading="lazy">
 
                     <div class="mt-3 text-end">
-                        <label for="image" class="text-decoration-underline text-dark text-xs">Modifier la photo</label>
-                        <input class="d-none" type="file" id="image" name="image" accept="image/*">
+                        <label for="image-book" class="text-decoration-underline text-dark text-xs">Modifier la photo</label>
+                        <input class="d-none image-input" type="file" id="image-book" name="image" accept="image/*">
                     </div>
                 </div>
 
@@ -50,13 +50,24 @@
 
                     <div class="mb-4">
                         <label for="description" class="form-label text-xs">Commentaire</label>
-                        <textarea name="description" id="description" class="form-control textarea-auto-resize" placeholder="Description" rows="4" required><?= htmlspecialchars($_POST['description'] ?? ($isEdit ? $book->getDescription() : '')) ?></textarea>
+                        <textarea
+                            name="description"
+                            id="description"
+                            class="form-control textarea-auto-resize"
+                            placeholder="Description"
+                            rows="4"
+                            maxlength="500"
+                            required><?= htmlspecialchars($_POST['description'] ?? ($isEdit ? $book->getDescription() : '')) ?></textarea>
                     </div>
                     <div class="mb-4">
                         <label for="availability" class="form-label text-xs">Disponibilité</label>
-                        <select name="availability" id="availability" class="form-select" required>
-                            <option value="disponible" <?= (htmlspecialchars($_POST['availability'] ?? '') === 'disponible') ? 'selected' : '' ?>>Disponible</option>
-                            <option value="indisponible" <?= (htmlspecialchars($_POST['availability'] ?? '') === 'indisponible') ? 'selected' : '' ?>>Indisponible</option>
+                        <select name="is_available" id="availability" class="form-select" required>
+                            <?php
+                            // 1. On détermine la valeur actuelle (Priorité au POST si erreur, sinon à la BDD, sinon 1 par défaut)
+                            $currentAvailability = $_POST['is_available'] ?? ($isEdit ? $book->getIsAvailable() : 1);
+                            ?>
+                            <option value="1" <?= (intval($currentAvailability) === 1) ? 'selected' : '' ?>>Disponible</option>
+                            <option value="0" <?= (intval($currentAvailability) === 0) ? 'selected' : '' ?>>Indisponible</option>
                         </select>
                     </div>
                     <div class="mt-5">
@@ -67,12 +78,3 @@
         </form>
     </section>
 </div>
-
-<script src="assets/js/image-preview.js"></script>
-                </div>
-            </div>
-        </form>
-    </section>
-</div>
-
-<script src="assets/js/image-preview.js"></script>
