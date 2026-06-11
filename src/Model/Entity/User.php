@@ -75,4 +75,40 @@ class User extends AbstractEntity
         $now = new DateTimeImmutable();
         return $this->createdAt->diff($now);
     }
+
+    /**
+     * Calcule et retourne la phrase d'ancienneté de l'utilisateur
+     * Exemple : "2 ans 3 mois", "2 mois 10 jours" ou "aujourd'hui"
+     * * @return string
+     */
+    public function getFormattedAnciennete(): string
+    {
+        $now = new \DateTimeImmutable();
+        $age = $this->getCreatedAt()->diff($now);
+
+        $parts = [];
+
+        // 1. Gestion des années
+        if ($age->y > 0) {
+            $parts[] = $age->y . ($age->y > 1 ? " ans" : " an");
+        }
+
+        // 2. Gestion des mois
+        if ($age->m > 0) {
+            $parts[] = $age->m . " mois";
+        }
+
+        // 3. Gestion des jours (s'affichent en complément des mois/ans)
+        if ($age->d > 0) {
+            $parts[] = $age->d . ($age->d > 1 ? " jours" : " jour");
+        }
+
+        // 4. Sécurité : si l'utilisateur vient tout juste de s'inscrire aujourd'hui
+        if (empty($parts)) {
+            $parts[] = "aujourd'hui";
+        }
+
+        // On assemble les morceaux avec un espace
+        return implode(' ', $parts);
+    }
 }
