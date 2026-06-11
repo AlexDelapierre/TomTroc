@@ -19,17 +19,17 @@
                 class="white-form-fields">
                 <div class="mb-5">
                     <label for="username" class="form-label text-xs">Pseudo</label>
-                    <input type="text" name="username" id="username" class="form-control form-control-lg bg-white" placeholder="" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" required>
+                    <input type="text" name="username" id="username" class="form-control form-control-lg bg-white" placeholder="" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" autocomplete="username" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="email" class="form-label text-xs">Adresse email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-lg bg-white" placeholder="" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                    <input type="email" name="email" id="email" class="form-control form-control-lg bg-white" placeholder="" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" autocomplete="email" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="password" class="form-label text-xs">Mot de passe</label>
-                    <input type="password" name="password" id="password" class="form-control form-control-lg bg-white" placeholder="" required>
+                    <input type="password" name="password" id="password" class="form-control form-control-lg bg-white" placeholder="" autocomplete="new-password" required>
                 </div>
 
                 <div class="d-grid gap-2">
