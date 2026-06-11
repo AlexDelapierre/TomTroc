@@ -85,7 +85,7 @@ class BookRepository
      */
     public function findByUser(int $userId): array
     {
-        $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id");
+        $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id ORDER BY id DESC");
         $query->execute(['user_id' => $userId]);
 
         $books = [];
@@ -102,7 +102,11 @@ class BookRepository
      */
     public function findAvailableByUser(int $userId): array
     {
-        $query = $this->db->prepare("SELECT * FROM book WHERE user_id = :user_id AND is_available = 1");
+        $query = $this->db->prepare("
+            SELECT * FROM book
+            WHERE user_id = :user_id AND is_available = 1
+            ORDER BY id DESC
+        ");
         $query->execute(['user_id' => $userId]);
 
         $books = [];
