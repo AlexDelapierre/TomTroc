@@ -26,7 +26,7 @@ try {
             $homeController->index();
             break;
 
-            // --- Section Utilisateur / Profil ---
+        // --- Section Utilisateur / Profil ---
         case 'profile': // Mon compte (utilisateur connecté)
             $userController = new UserController();
             $userController->showProfile();
@@ -42,7 +42,7 @@ try {
             $userController->showPublicProfile();
             break;
 
-            // --- Section Livres ---
+        // --- Section Livres ---
         case 'books': // Liste globale
             $bookController = new BookController();
             $bookController->list();
@@ -68,13 +68,13 @@ try {
             $bookController->delete();
             break;
 
-            // --- Section Messages ---
+        // --- Section Messages ---
         case 'messages': // Liste des conversations + messages d'une conversation sélectionnée
             $messageController = new MessageController();
             $messageController->showMessages();
             break;
 
-            // Section connexion.
+        // Section connexion.
         case 'register': // Inscription
             $userController = new UserController();
             $userController->register();
@@ -94,13 +94,10 @@ try {
             throw new Exception("La page demandée n'existe pas.");
     }
 } catch (Exception $e) {
-    $notFoundMessages = [
-        "La page demandée n'existe pas.",
-        "Le livre demandé n'existe pas.",
-        "L'utilisateur demandé est introuvable."
-    ];
+    // Liste des mots-clés qui caractérisent une ressource manquante
+    $isNotFound = str_contains($e->getMessage(), "n'existe pas") || str_contains($e->getMessage(), "introuvable");
 
-    if (in_array($e->getMessage(), $notFoundMessages) || $e instanceof \InvalidArgumentException && str_contains($e->getMessage(), "n'existe pas")) {
+    if ($isNotFound) {
         // Envoi du code statut HTTP 404 Not Found
         http_response_code(404);
 
