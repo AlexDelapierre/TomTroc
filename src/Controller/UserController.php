@@ -18,6 +18,12 @@ class UserController extends AbstractController
      */
     public function register()
     {
+        // Si l'utilisateur est déjà connecté, on le redirige (sécurité)
+        if (isset($_SESSION['user'])) {
+            $this->redirect('index.php?action=profile');
+            return;
+        }
+
         $errors = [];
         $targetAction = $_GET['redirect'] ?? null;
 
@@ -29,6 +35,11 @@ class UserController extends AbstractController
                 // if ($_POST['password'] !== $_POST['password_confirm']) {
                 //     $errors[] = "Les mots de passe ne correspondent pas.";
                 // }
+
+                // SÉCURITÉ : Vérification du format de l'email
+                if (!filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
+                    $errors[] = "Le format de l'adresse email n'est pas valide.";
+                }
 
                 // Vérification email unique
                 if ($userRepo->findByEmail($_POST['email'])) {
@@ -132,9 +143,9 @@ class UserController extends AbstractController
 
         // On récupère les livres de l'utilisateur depuis le Repo
         $bookRepo = new BookRepository();
-        $AvailableBooks = $bookRepo->findAvailableByUser($user->getId());
+        $allUserBooks = $bookRepo->findByUser($user->getId());
         // On compte le nombre de livres
-        $bookCount = count($AvailableBooks);
+        $bookCount = count($allUserBooks);
 
         // Variables pour gérer les erreurs/succès si envoyées par updateProfile
         $error = $_SESSION['error_profile'] ?? null;
@@ -144,7 +155,7 @@ class UserController extends AbstractController
         $this->render('user/profile', [
             'title' => 'Mon Compte',
             'user' => $user,
-            'books' => $AvailableBooks,
+            'books' => $allUserBooks,
             'bookCount' => $bookCount,
             'error' => $error,
             'success' => $success
@@ -172,6 +183,12 @@ class UserController extends AbstractController
 
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
+        $username = $_POST['username'] ?? '';
+
+        // Mise à jour du nom d'utilisateur
+        if (!empty($username) && $username !== $user->getUsername()) {
+            $user->setUsername($username);
+        }
 
         // Mise à jour de l'email
         if (!empty($email) && $email !== $user->getEmail()) {
@@ -186,7 +203,7 @@ class UserController extends AbstractController
         }
 
         // Mise à jour du mot de passe
-        if (!empty($password)) {
+        if (!empty($password) && !password_verify($password, $user->getPassword())) {
             $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
         }
 
@@ -237,14 +254,14 @@ class UserController extends AbstractController
 
         // On récupère les livres de l'utilisateur depuis le Repo
         $bookRepo = new BookRepository();
-        $books = $bookRepo->findByUser($user->getId());
+        $publicBooks = $bookRepo->findAvailableByUser($user->getId());
         // On compte le nombre de livres
-        $bookCount = count($books);
+        $bookCount = count($publicBooks);
 
         $this->render('user/public_profile', [
             'title' => 'Profil de ' . htmlspecialchars($user->getUsername()),
             'user' => $user,
-            'books' => $books,
+            'books' => $publicBooks,
             'bookCount' => $bookCount
         ]);
     }
