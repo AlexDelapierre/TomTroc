@@ -92,5 +92,13 @@ input:-webkit-autofill:active {
    ========================================================================== */
 /* --- AUTOGROWING TEXTAREA OVERRIDES --------------------------------------- */
 .textarea-auto-resize {
-  max-height: 400px; /* Limit before the scrollbar appears */
+  resize: none; /* Empêche le redimensionnement manuel */
+  min-height: 120px; /* Aligné sur les 4 rows Bootstrap */
+  max-height: 50vh !important; /* Le !important force le JS à respecter la limite */
+  overflow-y: hidden; /* Cache l'ascenseur par défaut */
+}
+
+/* Quand le max-height est atteint, on réactive l'ascenseur */
+.textarea-auto-resize[style*="height"] {
+  overflow-y: auto;
 }

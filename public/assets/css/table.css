@@ -50,3 +50,15 @@ thead {
 .custom-scroll::-webkit-scrollbar {
   display: none;
 }
+
+.description-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;           /* Définit le nombre maximal de lignes à 4 */
+    -webkit-box-orient: vertical;    /* Obligatoire pour le fonctionnement du line-clamp */
+    overflow: hidden;                /* Masque tout le texte qui dépasse des 4 lignes */
+    text-overflow: ellipsis;         /* Ajoute les 3 petits points (...) à la fin */
+
+    /* Optionnel : Ajustements de sécurité pour l'affichage en tableau */
+    max-width: 300px;                /* Évite que la cellule du tableau ne s'étire à l'infini */
+    word-break: break-word;          /* Coupe les mots extrêmement longs si nécessaire */
+}
