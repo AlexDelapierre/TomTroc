@@ -9,8 +9,8 @@
         <div class="col-12 col-sm-8 col-lg-6">
             <?php $showBookImage = $book->getImage() ? 'uploads/books/' . htmlspecialchars($book->getImage()) : 'assets/img/default-book.jpg'; ?>
             <img src="<?= $showBookImage ?>"
-                class="d-block w-100 img-fluid object-fit-cover"
-                alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()) ?>" width="700" height="500" loading="lazy">
+                class="d-block img-fluid object-fit-cover detail-book-img"
+                alt="Couverture du livre : <?= htmlspecialchars($book->getTitle()) ?>" loading="lazy">
         </div>
 
         <div class="col-lg-6 p-custom-large">
@@ -22,7 +22,7 @@
             <hr class="hr-short">
 
             <p class="text-xxs fw-bold text-dark mt-4 mb-3">Description</p>
-            <p class="mb-4">
+            <p class="mb-4 text-break">
                 <?= htmlspecialchars($book->getDescription() ?? 'Aucune description disponible.'); ?>
             </p>
 
@@ -40,11 +40,13 @@
                 </div>
             </a>
 
-            <div class="d-grid mt-5">
-                <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary rounded-3 w-100">
-                    Envoyer un message
-                </a>
-            </div>
+            <?php if (isset($_SESSION['user']['id']) && (int)$_SESSION['user']['id'] !== $book->getUser()->getId()): ?>
+                <div class="d-grid mt-5">
+                    <a href="index.php?action=messages&id=<?= $book->getUser()->getId(); ?>" class="btn btn-primary rounded-3 w-100">
+                        Envoyer un message
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
