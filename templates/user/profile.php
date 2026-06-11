@@ -6,9 +6,7 @@
         <form action="index.php?action=updateProfile<?= isset($_GET['redirect']) ? '&redirect=' . htmlspecialchars($_GET['redirect']) : '' ?>" method="POST" enctype="multipart/form-data">
             <div class="row align-items-stretch g-4">
                 <div class="col-12 col-lg-6">
-                    <?php
-                    include __DIR__ . '/../partials/_UserProfileCard.php';
-                    ?>
+                    <?php include __DIR__ . '/../partials/_UserProfileCard.php'; ?>
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="h-100 d-flex flex-column justify-content-center bg-white form-profile-container">
@@ -20,6 +18,12 @@
                             </div>
                         <?php endif; ?>
 
+                        <?php if (isset($success)): ?>
+                            <div class="alert alert-success" role="alert">
+                                <?= htmlspecialchars($success) ?>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="mb-4">
                             <label for="email" class="form-label text-xs">Adresse email</label>
                             <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="" value="<?= htmlspecialchars($user->getEmail()) ?>" required>
@@ -27,7 +31,7 @@
 
                         <div class="mb-4">
                             <label for="password" class="form-label text-xs">Mot de passe</label>
-                            <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="" required>
+                            <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="">
                         </div>
 
                         <div class="mb-4">
@@ -66,9 +70,7 @@
                     <i class="bi bi-plus-lg"></i> Ajouter un livre
                 </a>
             </div>
-            <?php
-            include __DIR__ . '/../partials/_BookListTable.php';
-            ?>
+            <?php include __DIR__ . '/../partials/_BookListTable.php'; ?>
         </div>
     </div>
 </div>
