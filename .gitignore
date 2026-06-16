@@ -12,4 +12,7 @@ public/uploads/*
 .DS_Store
 Thumbs.db
 
+# Slides de présentation du projet
+/presentation/
+
 .php-cs-fixer.cache
