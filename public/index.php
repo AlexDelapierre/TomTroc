@@ -69,9 +69,14 @@ try {
             break;
 
         // --- Section Messages ---
-        case 'messages': // Liste des conversations + messages d'une conversation sélectionnée
+        case 'messages': // Liste des conversations + fil de discution
             $messageController = new MessageController();
             $messageController->showMessages();
+            break;
+
+        case 'addMessage': // Ajouter un message
+            $messageController = new MessageController();
+            $messageController->addMessage();
             break;
 
         // Section connexion.
