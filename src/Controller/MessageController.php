@@ -20,16 +20,16 @@ class MessageController extends AbstractController
         $this->isConnected();
         $userId = $this->getSessionUserId();
 
-        $repo = new MessageRepository();
+        $messageRepo = new MessageRepository();
         $userRepo = new UserRepository();
-        $conversations = $repo->getLastMessagesByUser($userId);
+        $conversations = $messageRepo->getLastMessagesByUser($userId);
 
         $contact = null;
         $messages = [];
         $contactId = isset($_GET['id']) ? (int) $_GET['id'] : null;
         $isUrlIDContact = (bool) $contactId;
 
-        // Si aucun contact n'est sélectionné explicitement, on charge le permier de la liste par défaut (affiché sur desktop)
+        // Si aucun contact n'est sélectionné explicitement, on charge le premier de la liste par défaut (affiché sur desktop)
         if (!$contactId && !empty($conversations)) {
             $contactId = $conversations[0]['contact']->getId();
         }
@@ -45,24 +45,11 @@ class MessageController extends AbstractController
             }
         }
 
+        // Si un contact est sélectionné, on marque les messages de ce contact comme lus ...
+        // et on récupère les messages de la conversation
         if ($contact) {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $content = trim($_POST['content'] ?? '');
-                if (!empty($content)) {
-                    $newMessage = new Message();
-                    $newMessage->setSenderId($userId);
-                    $newMessage->setReceiverId($contact->getId());
-                    $newMessage->setContent($content);
-
-                    $repo->add($newMessage);
-                    $this->redirect('index.php?action=messages&id=' . $contact->getId());
-                }
-            }
-
-            // Marque les messages de ce contact comme lus
-            $repo->markConversationAsRead($userId, $contact->getId());
-
-            $messages = $repo->getConversation($userId, $contact->getId());
+            $messageRepo->markConversationAsRead($userId, $contact->getId());
+            $messages = $messageRepo->getConversation($userId, $contact->getId());
         }
 
         $this->render('message/index', [
@@ -73,5 +60,34 @@ class MessageController extends AbstractController
             'userId' => $userId,
             'isUrlIDContact' => $isUrlIDContact
         ]);
+    }
+
+    /**
+     * Traite l'action d'ajout de message (POST)
+     */
+    public function addMessage()
+    {
+        $this->isConnected();
+
+        $contactId = isset($_GET['id']) ? (int) $_GET['id'] : null;
+        $content = trim($_POST['content'] ?? '');
+
+        if ($contactId && !empty($content)) {
+            $userId = $this->getSessionUserId();
+
+            $newMessage = new Message();
+            $newMessage->setSenderId($userId);
+            $newMessage->setReceiverId($contactId);
+            $newMessage->setContent($content);
+
+            $messageRepo = new MessageRepository();
+            $messageRepo->add($newMessage);
+
+            // Redirection vers la vue de la conversation après l'ajout
+            $this->redirect('index.php?action=messages&id=' . $contactId);
+        }
+
+        // Si problème ou accès direct sans données, on réaiguille vers la messagerie générale
+        $this->redirect('index.php?action=messages');
     }
 }
