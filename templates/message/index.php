@@ -71,7 +71,7 @@
                                         <span class="small text-muted"><?= $msg->getCreatedAt()->format('d/m H:i') ?></span>
                                     </div>
                                     <!-- Bulle de message -->
-                                    <div class="p-2 text-start d-inline-block text-break <?= $isMe ? 'bg-tertiary' : 'bg-white' ?>">
+                                    <div class="p-2 mb-4 text-start d-inline-block text-break <?= $isMe ? 'bg-tertiary' : 'bg-white' ?>">
                                         <?= nl2br(htmlspecialchars($msg->getContent())) ?>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
 
                     <!-- Formulaire d'envoi -->
                     <div class="mb-4">
-                        <form action="index.php?action=messages&id=<?= $contact->getId() ?>" method="POST" class="d-flex flex-column flex-md-row gap-2">
+                        <form action="index.php?action=addMessage&id=<?= $contact->getId() ?>" method="POST" class="d-flex flex-column flex-md-row gap-2">
                             <input type="text" name="content" class="form-control form-control-sm bg-white" placeholder="Tapez votre message ici" required>
                             <button type="submit" class="btn btn-primary btn-sm">Envoyer</button>
                         </form>
