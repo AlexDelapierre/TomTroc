@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @var int $currentAction Injecté globalement via AbstractController::render()
+ * @var int $unreadMessagesCount Injecté globalement via AbstractController::render()
+ */
+?>
 <header class="sticky-top">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-navbar-width d-flex flex-wrap justify-content-between align-items-center">
