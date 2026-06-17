@@ -9,9 +9,13 @@ abstract class AbstractController
 {
 
     /**
-     * Affiche une vue intégrée dans le layout principal
-     * @param string $template Nom du fichier template (ex: 'book/list')
-     * @param array $data Données à transmettre au template
+     * Rend un template et l'injecte dans le layout principal (gabarit).
+     * * Cette méthode centralise l'injection des variables globales de l'application
+     * (comme l'action courante et le compteur de messages) pour qu'elles soient
+     * disponibles dans les composants communs (ex: _header.php).
+     *
+     * @param string $template Nom du fichier template sans l'extension (ex: 'book/list')
+     * @param array $data Données spécifiques passées par le contrôleur enfant
      */
     protected function render(string $template, array $data = []): void
     {
