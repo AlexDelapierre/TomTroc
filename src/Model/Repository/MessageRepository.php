@@ -68,7 +68,6 @@ class MessageRepository
                 u.id as user_id,
                 u.username as user_username,
                 u.email as user_email,
-                u.password as user_password,
                 u.avatar as user_avatar,
                 u.created_at as user_created_at
             FROM message m
@@ -91,7 +90,6 @@ class MessageRepository
                 'id' => $data['user_id'],
                 'username' => $data['user_username'],
                 'email' => $data['user_email'],
-                'password' => $data['user_password'],
                 'avatar' => $data['user_avatar'],
                 'created_at' => $data['user_created_at']
             ];
