@@ -83,7 +83,7 @@
                     <div class="mb-4">
                         <form action="index.php?action=addMessage&id=<?= $contact->getId() ?>" method="POST" class="d-flex flex-column flex-md-row gap-2">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
-                            <input type="text" name="content" class="form-control form-control-sm bg-white" placeholder="Tapez votre message ici" required>
+                            <input type="text" name="content" class="form-control form-control-sm bg-white" placeholder="Tapez votre message ici" maxlength="1000" required>
                             <button type="submit" class="btn btn-primary btn-sm">Envoyer</button>
                         </form>
                     </div>
