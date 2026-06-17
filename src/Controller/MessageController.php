@@ -20,12 +20,19 @@ class MessageController extends AbstractController
         $this->isConnected();
         $userId = $this->getSessionUserId();
 
+        // Génération d'un token CSRF sécurisé s'il n'existe pas en session
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         $messageRepo = new MessageRepository();
         $userRepo = new UserRepository();
-        $conversations = $messageRepo->getLastMessagesByUser($userId);
 
+        $conversations = $messageRepo->getLastMessagesByUser($userId);
         $contact = null;
         $messages = [];
+
+        // Récupération de l'ID via l'URL
         $contactId = isset($_GET['id']) ? (int) $_GET['id'] : null;
         $isUrlIDContact = (bool) $contactId;
 
@@ -34,23 +41,25 @@ class MessageController extends AbstractController
             $contactId = $conversations[0]['contact']->getId();
         }
 
+        // Si on a un contactId (soit via l'URL, soit le premier par défaut)
         if ($contactId) {
+            // Un utilisateur ne peut pas s'envoyer de message à lui-même
             if ($userId === $contactId) {
                 $this->redirect('index.php?action=messages');
             }
 
             $contact = $userRepo->findById($contactId);
+
+            // Si le contact n'existe pas en base de données
             if (!$contact) {
                 $this->redirect('index.php?action=messages');
             }
-        }
 
-        // Si un contact est sélectionné, on marque les messages de ce contact comme lus ...
-        // et on récupère les messages de la conversation
-        if ($contact) {
+            // Le contact est valide : on met à jour la lecture et on charge l'historique
             $messageRepo->markConversationAsRead($userId, $contact->getId());
             $messages = $messageRepo->getConversation($userId, $contact->getId());
         }
+
 
         $this->render('message/index', [
             'title' => 'Messagerie',
@@ -58,7 +67,8 @@ class MessageController extends AbstractController
             'contact' => $contact,
             'messages' => $messages,
             'userId' => $userId,
-            'isUrlIDContact' => $isUrlIDContact
+            'isUrlIDContact' => $isUrlIDContact,
+            'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
 
@@ -68,6 +78,12 @@ class MessageController extends AbstractController
     public function addMessage()
     {
         $this->isConnected();
+
+        // Vérification du token reçu via POST avec celui de la session
+        $csrfToken = $_POST['csrf_token'] ?? '';
+        if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $csrfToken)) {
+            throw new \Exception("Erreur de sécurité CSRF.");
+        }
 
         $contactId = isset($_GET['id']) ? (int) $_GET['id'] : null;
         $content = trim($_POST['content'] ?? '');
