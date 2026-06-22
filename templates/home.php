@@ -84,7 +84,7 @@
             </div>
             <div class="d-flex align-items-center gap-3">
                 <p class="text-xss">L’équipe Tom Troc</p>
-                <img src="/assets/icons/Vector2.svg" alt="TomTroc" class="navbar-logo navbar-logo-lg d-inline-block align-text-top ms-auto">
+                <img src="/assets/icons/Vector2.svg" alt="Logo coeur" class="navbar-logo navbar-logo-lg d-inline-block align-text-top ms-auto">
             </div>
         </div>
     </div>
