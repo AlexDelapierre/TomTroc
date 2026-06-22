@@ -35,7 +35,7 @@ Exemples :
    schema.sql
    ```
 
-   (situé à la racine du projet)
+   (situé dans le dossier db à la racine du projet)
 
 4. Importez le jeu de données de test en exécutant le fichier :
 
@@ -43,7 +43,7 @@ Exemples :
    data.sql
    ```
 
-   (situé à la racine du projet)
+   (situé dans le dossier db à la racine du projet)
 
 ### 3. Fichier de configuration
 
