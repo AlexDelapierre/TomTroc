@@ -89,7 +89,7 @@ class MessageController extends AbstractController
         $content = trim($_POST['content'] ?? '');
 
         if ($contactId && !empty($content)) {
-            // Validation stricte de la longueur côté serveur
+            // Validation de la longueur côté serveur
             if (mb_strlen($content) > 1000) {
                 throw new \Exception("Le message est trop long (1000 caractères maximum).");
             }
