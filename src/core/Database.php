@@ -44,8 +44,7 @@ class Database
                     PDO::ATTR_EMULATE_PREPARES => false,
                 ]);
             } catch (PDOException $e) {
-                // En développement, on affiche l'erreur. En prod, on loggerait l'erreur.
-                die("Erreur de connexion à la base de données : " . $e->getMessage());
+                throw new \Exception("Erreur de connexion à la base de données : " . $e->getMessage());
             }
         }
 
