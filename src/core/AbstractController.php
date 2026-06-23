@@ -9,8 +9,8 @@ abstract class AbstractController
 {
 
     /**
-     * Rend un template et l'injecte dans le layout principal (gabarit).
-     * * Cette méthode centralise l'injection des variables globales de l'application
+     * Rend un template et l'injecte dans le layout principal.
+     * Cette méthode centralise l'injection des variables globales de l'application
      * (comme l'action courante et le compteur de messages) pour qu'elles soient
      * disponibles dans les composants communs (ex: _header.php).
      *
@@ -39,7 +39,7 @@ abstract class AbstractController
         if (file_exists($templatePath)) {
             require $templatePath;
         } else {
-            die("Erreur : Le template '{$template}' est introuvable.");
+            throw new \Exception("Le template '{$template}' est introuvable.");
         }
 
         $content = ob_get_clean();
