@@ -65,43 +65,49 @@ class MessageRepository
         $query = $this->db->prepare("
             SELECT
                 m.id, m.sender_id, m.receiver_id, m.content, m.created_at,
-                u.id as user_id,
-                u.username as user_username,
-                u.email as user_email,
-                u.avatar as user_avatar,
-                u.created_at as user_created_at
+                s.id as sender_id_u, s.username as sender_username, s.email as sender_email, s.avatar as sender_avatar, s.created_at as sender_created_at,
+                r.id as receiver_id_u, r.username as receiver_username, r.email as receiver_email, r.avatar as receiver_avatar, r.created_at as receiver_created_at
             FROM message m
-            JOIN user u ON u.id = IF(m.sender_id = ?, m.receiver_id, m.sender_id)
-            WHERE m.id IN (
-                SELECT MAX(id)
-                FROM message
-                WHERE sender_id = ? OR receiver_id = ?
-                GROUP BY IF(sender_id = ?, receiver_id, sender_id)
-            )
+            LEFT JOIN user s ON s.id = m.sender_id
+            LEFT JOIN user r ON r.id = m.receiver_id
+            WHERE m.sender_id = ? OR m.receiver_id = ?
             ORDER BY m.created_at DESC
         ");
 
-        $query->execute([$userId, $userId, $userId, $userId]);
+        $query->execute([$userId, $userId]);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
         $conversations = [];
+        $interlocuteursVus = []; // Liste des IDs d'interlocuteurs déjà croisés, pour ignorer leurs messages plus anciens
+
         foreach ($results as $data) {
+            // On détermine qui est l'interlocuteur en PHP
+            $isSender = ($data['sender_id'] == $userId);
+            $interlocuteurId = $isSender ? $data['receiver_id'] : $data['sender_id'];
+
+            // Si on a déjà traité un message plus récent pour cet interlocuteur, on passe au suivant
+            if (isset($interlocuteursVus[$interlocuteurId])) {
+                continue;
+            }
+            $interlocuteursVus[$interlocuteurId] = true;
+
+            // On mappe les données selon qu'on a besoin des infos de l'expéditeur ou du destinataire
             $userData = [
-                'id' => $data['user_id'],
-                'username' => $data['user_username'],
-                'email' => $data['user_email'],
-                'avatar' => $data['user_avatar'],
-                'created_at' => $data['user_created_at']
+                'id'         => $interlocuteurId,
+                'username'   => $isSender ? $data['receiver_username'] : $data['sender_username'],
+                'email'      => $isSender ? $data['receiver_email'] : $data['sender_email'],
+                'avatar'     => $isSender ? $data['receiver_avatar'] : $data['sender_avatar'],
+                'created_at' => $isSender ? $data['receiver_created_at'] : $data['sender_created_at']
             ];
             $contact = new User($userData);
 
             // Extraction des données du message
             $messageData = [
-                'id' => $data['id'],
-                'sender_id' => $data['sender_id'],
+                'id'          => $data['id'],
+                'sender_id'   => $data['sender_id'],
                 'receiver_id' => $data['receiver_id'],
-                'content' => $data['content'],
-                'created_at' => $data['created_at']
+                'content'     => $data['content'],
+                'created_at'  => $data['created_at']
             ];
             $message = new Message($messageData);
 
